@@ -1,1 +1,1 @@
-New Repository for C# version of BattleCounter
+New Repository for C# version of BattleCounter.
