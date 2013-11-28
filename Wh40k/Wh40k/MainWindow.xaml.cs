@@ -16,24 +16,28 @@ using System.Windows.Shapes;
 namespace Wh40k
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WindowMainMenu.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WindowMainMenu : Window
     {
-        public MainWindow()
+        public WindowMainMenu()
         {
             InitializeComponent();
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e)
+//B U T T O N   " C L O S E   W I N D O W "
+
+        private void ButtonCloseWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void Melee_Click(object sender, RoutedEventArgs e)
+//B U T T O N   " C L O S E   C O M B A T "
+
+        private void ButtonCloseCombat_Click(object sender, RoutedEventArgs e)
         {
-            Window melee = new Melee();
-            melee.Show();
+            Window WCloseCombat = new WindowCloseCombatMenu();
+            WCloseCombat.Show();
         }
     }
 }

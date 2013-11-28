@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Wh40k
 {
     /// <summary>
-    /// Interaction logic for Melee.xaml
+    /// Interaction logic for WindowCloseCombatMenu.xaml
     /// </summary>
-    public partial class Melee : Window
+    public partial class WindowCloseCombatMenu : Window
     {
-        public Melee()
+        public WindowCloseCombatMenu()
         {
             InitializeComponent();
         }
