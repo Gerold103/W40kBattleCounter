@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Boltgun.png" />
+    <Resource Include="CloseCombatBackground.jpg" />
     <Resource Include="Lose.png" />
     <Resource Include="Mid.png" />
     <Resource Include="Shield.png" />

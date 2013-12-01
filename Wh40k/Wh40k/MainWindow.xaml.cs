@@ -39,5 +39,10 @@ namespace Wh40k
             Window WCloseCombat = new WindowCloseCombatMenu();
             WCloseCombat.Show();
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

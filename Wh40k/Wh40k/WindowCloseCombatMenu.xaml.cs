@@ -49,15 +49,9 @@ namespace Wh40k
             UnblockSaveBox.IsEnabled = false;
         }
 
-        /*private void isInfantry_Checked(object sender, RoutedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            openVeh.IsEnabled = true;
+            this.DragMove();
         }
-
-        private void isInfantry_Unchecked(object sender, RoutedEventArgs e)
-        {
-            openVeh.IsEnabled = false;
-        }*/
-
     }
 }
