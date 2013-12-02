@@ -31,22 +31,22 @@ namespace Wh40k
 
         private void Save_Checked(object sender, RoutedEventArgs e)
         {
-            SaveBox.IsEnabled = true;
+            SaveBox.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void Save_Unchecked(object sender, RoutedEventArgs e)
         {
-            SaveBox.IsEnabled = false;
+            SaveBox.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void UnblockSave_Checked(object sender, RoutedEventArgs e)
         {
-            UnblockSaveBox.IsEnabled = true;
+            UnblockSaveBox.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void UnblockSave_Unchecked(object sender, RoutedEventArgs e)
         {
-            UnblockSaveBox.IsEnabled = false;
+            UnblockSaveBox.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
