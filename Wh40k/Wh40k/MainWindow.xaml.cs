@@ -40,6 +40,14 @@ namespace Wh40k
             WCloseCombat.Show();
         }
 
+//B U T T O N   " D I S T A N T   C O M B A T "
+
+        private void ButtonDistantCombat_Click(object sender, RoutedEventArgs e)
+        {
+            Window WDistantCombat = new WindowDistantCombatMenu();
+            WDistantCombat.Show();
+        }
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();

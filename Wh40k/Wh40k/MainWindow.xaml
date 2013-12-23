@@ -4,7 +4,7 @@
         Title="MainWindow" Width="600" Height="400" ResizeMode="NoResize" Background="#FF7A7A7A" MouseDown="Window_MouseDown" BorderThickness="2" ShowActivated="False" WindowStyle="None">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="MainBackground.png">
+            <ImageBrush ImageSource="Deathwatch.png">
                 <ImageBrush.RelativeTransform>
                     <TransformGroup>
                         <ScaleTransform CenterY="0.5" CenterX="0.5"/>
@@ -15,27 +15,28 @@
                 </ImageBrush.RelativeTransform>
             </ImageBrush>
         </Grid.Background>
-        <Button x:Name="ButtonDistantCombat" Content="Дальний бой" Margin="410,100,0,0" Width="140" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif" Panel.ZIndex="-2" BorderThickness="0">
+        <Button x:Name="ButtonDistantCombat" Content="Дальний бой" Margin="446,100,0,0" Width="140" Height="40" HorizontalAlignment="Left" Click="ButtonDistantCombat_Click"
+                VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif" Panel.ZIndex="-2" BorderThickness="0">
             <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFA5B68E" Offset="0"/>
-                    <GradientStop Color="#FFFCFFF9" Offset="1"/>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FFD47777"/>
+                    <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="ButtonCloseCombat" Content="Ближний бой" Margin="410,180,0,0" Width="140" Height="40" Click="ButtonCloseCombat_Click" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif">
+        <Button x:Name="ButtonCloseCombat" Content="Ближний бой" Margin="446,180,0,0" Width="140" Height="40" Click="ButtonCloseCombat_Click" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFA5B68E" Offset="0"/>
-                    <GradientStop Color="#FFFCFFF9" Offset="1"/>
+                    <GradientStop Color="#FFD47777"/>
+                    <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="ButtonCloseWindow" Content="Закрыть" Margin="410,260,0,0" Width="140" Height="40" Click="ButtonCloseWindow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif">
+        <Button x:Name="ButtonCloseWindow" Content="Закрыть" Margin="446,260,0,0" Width="140" Height="40" Click="ButtonCloseWindow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFA5B68E" Offset="0"/>
-                    <GradientStop Color="#FFFCFFF9" Offset="1"/>
+                    <GradientStop Color="#FFD47777"/>
+                    <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
@@ -53,9 +54,9 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="#FF93DABD" Offset="1"/>
+                    <GradientStop Color="#FFDA9393" Offset="1"/>
                     <GradientStop Color="White"/>
-                    <GradientStop Color="#FFDCF3E9" Offset="0.561"/>
+                    <GradientStop Color="#FFF3DCDC" Offset="0.561"/>
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
