@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 
 namespace CombatLib
 {
-    public abstract class Defense // для всего защищающегося 
+
+//Ц Е Л Ь
+
+    public abstract class Defense
     /* Ремарка: весь код без комментариев представляет собой стандартное присваивание, либо присваивание через проверку с выдачей исключения в случае неудачи */
     {
-        private int armorSave = 7, invulSave = 7;
-        public int ArmorSave // a = int[1..6];
+        protected int armorSave; //Диапазон [1; 6]. 7 - если спасброска нет. Спасбросок по броне.
+        public int ArmorSave
         {
             get { return this.armorSave; }
             set
             {
                 if ((value < 1) || (value > 6))
                 {
-                    throw new ApplicationException("armorSave is OutOfRange [1..6]");
+                    throw new ApplicationException("ArmorSave is OutOfRange [1..6]");
                 }
                 else
                 {
@@ -26,6 +29,7 @@ namespace CombatLib
             }
         }
 
+        protected int invulSave; //Диапазон [1; 6]. 7 - если спасброска нет. Непробиваемый спасбросок.
         public int InvulSave
         {
             get { return this.invulSave; }
@@ -33,13 +37,19 @@ namespace CombatLib
             {
                 if ((value < 1) || (value > 6))
                 {
-                    throw new ApplicationException("invulSave is OutOfRange [1..6]");
+                    throw new ApplicationException("InvulSave is OutOfRange [1..6]");
                 }
                 else
                 {
                     this.invulSave = value;
                 }
             }
+        }
+
+        protected Defense(int extern_armorSave, int extern_invulSave) //Конструктор: ArmorSave = 7, InvulSave = 7
+        {
+            this.ArmorSave = extern_armorSave;
+            this.InvulSave = extern_invulSave;
         }
     }
 }

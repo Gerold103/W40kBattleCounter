@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace CombatLib
 {
-    class DRVehicle : DRanged // для всего защищающегося и стреляющего и технического
+
+    //Ц Е Л Ь   Т Е Х Н И К А   В   Д А Л Ь Н Е М   Б О Ю
+
+    class DRVehicle : DefenceRanged
     {
-        private int t;
+        protected int t; //T - Диапазон [1; 14]. Защита техники.
         public int T
         {
             get { return this.t; }
@@ -24,12 +27,16 @@ namespace CombatLib
                 }
             }
         }
-        public DRVehicle(int aSave, int iSave, int coverSave, int t)
+
+        public DRVehicle() //Конструктор без параметров. В конструктор базового класса пересылается 7 и 7.
+            : base(7, 7) { }
+
+        public DRVehicle(int extern_t, int extern_armorSave = 7, int extern_invulSave = 7, int extern_coverSave = 7) //Конструктор: T берется извне. ArmorSave, InvulSave, CoverSave
+                                                                                                                     //берутся извне и пересылаются в конструктор базового класса
+                                                                                                                     //или приравниваются к 7 по умолчанию
+            : base(extern_armorSave, extern_invulSave, extern_coverSave)
         {
-            this.ArmorSave = aSave;
-            this.InvulSave = iSave;
-            this.CoverSave = coverSave;
-            this.T = t;
+            this.T = extern_t;
         }
     }
 }

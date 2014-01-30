@@ -47,14 +47,25 @@
     <Compile Include="Offence\ranged\ORInfantry.cs" />
     <Compile Include="Offence\ranged\ORanged.cs" />
     <Compile Include="Defense\Defense.cs" />
-    <Compile Include="Defense\Melee\DMelee.cs" />
-    <Compile Include="Defense\Ranged\DRanged.cs" />
+    <Compile Include="Defense\Melee\DefenceMelee.cs" />
+    <Compile Include="Defense\Ranged\DefenceRanged.cs" />
     <Compile Include="Defense\Melee\DMVehicle.cs" />
     <Compile Include="Defense\Melee\DMInfantry.cs" />
     <Compile Include="Defense\Ranged\DRVehicle.cs" />
     <Compile Include="Defense\Ranged\DRInfantry.cs" />
+    <Compile Include="Phases\Phase.cs" />
+    <Compile Include="Phases\PhaseHits\PhaseHits.cs" />
+    <Compile Include="Phases\PhaseHits\PhaseHitsInfantry.cs" />
+    <Compile Include="Phases\PhaseHits\PhaseHitsVehicle.cs" />
+    <Compile Include="Phases\PhaseSaves\PhaseSaves.cs" />
+    <Compile Include="Phases\PhaseSaves\PhaseSavesInfantry.cs" />
+    <Compile Include="Phases\PhaseSaves\PhaseSavesVehicle.cs" />
+    <Compile Include="Phases\PhaseWounds\PhaseWounds.cs" />
+    <Compile Include="Phases\PhaseWounds\PhaseWoundsInfantry.cs" />
+    <Compile Include="Phases\PhaseWounds\PhaseWoundsVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

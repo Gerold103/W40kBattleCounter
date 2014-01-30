@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace CombatLib
 {
-    class DMelee : Defense // для всего защищающегося в ближнем бою
+
+//Ц Е Л Ь   В   Б Л И Ж Н Е М   Б О Ю
+
+    public abstract class DefenceMelee : Defense
     {
-        private int ws;
+        protected int ws; //Диапазон [1; 10].
         public int WS 
         {
             get { return this.ws; }
@@ -24,5 +27,8 @@ namespace CombatLib
                 }
             }
         }
+
+        protected DefenceMelee(int extern_armorSave, int extern_invulSave) //Конструктор, передающий ArmorSave и InvulSave конструктору базового класса
+            : base(extern_armorSave, extern_invulSave) { }
     }
 }

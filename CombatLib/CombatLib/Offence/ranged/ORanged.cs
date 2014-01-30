@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace CombatLib
 {
-    public abstract class ORanged : Offence // для всего атакующего и стреляющего
+
+//А Т А К У Ю Щ И Й   В   Д А Л Ь Н Е М   Б О Ю
+
+    public abstract class OffenceRanged : Offence
     {
-        private int bs;
+        protected int bs; //BS атакующего. Дипазон [1; 10].
         public int BS
         {
             get { return this.bs; }
@@ -24,5 +27,8 @@ namespace CombatLib
                 }
             }
         }
+
+        protected OffenceRanged(int extern_ap) //Конструктор, передающий AP конструктору базового класса
+            : base(extern_ap) { }
     }
 }

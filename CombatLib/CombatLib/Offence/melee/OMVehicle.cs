@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace CombatLib
 {
-    public class OMVehicle : OffenceMelee // для всего атакующего и дерущегося в ближнем бою и технического
+
+//А Т А К У Ю Щ А Я   В   Б Л И Ж Н Е М   Б О Ю   Т Е Х Н И К А
+
+    public class OMVehicle : OffenceMelee
     {
-        public OMVehicle(int a, int s, int ap, int ws)
+        public OMVehicle() //Конструктор без параметров. В конструктор базового класса пересылается 7.
+            : base(7) { }
+
+        public OMVehicle(int extern_a, int extern_s, int extern_ws, int extern_ap) //Конструктор: A, S, WS берутся извне. AP берется извне и пересылается
+                                                                                   //в конструктор базового класса
+            : base(extern_ap)
         {
-            this.A = a;
-            this.S = s;
-            this.AP = ap;
-            this.WS = ws;
+            this.A = extern_a;
+            this.S = extern_s;
+            this.WS = extern_ws;
         }
     }
 }
