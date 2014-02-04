@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CombatLib")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Библиотека функций для Battle Counter")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CombatLib")]

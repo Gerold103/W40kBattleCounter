@@ -12,9 +12,14 @@ namespace CombatLib
     public abstract class DefenceMelee : Defense
     {
         protected int ws; //Диапазон [1; 10].
+        protected bool wsDefined; //Флаг определенности
         public int WS 
         {
-            get { return this.ws; }
+            get
+            {
+                if (this.wsDefined) return this.ws;
+                else throw new ApplicationException("WS is Undefined");
+            }
             set
             {
                 if ((value < 1) || (value > 10))
@@ -24,11 +29,21 @@ namespace CombatLib
                 else
                 {
                     this.ws = value;
+                    this.wsDefined = true;
                 }
             }
         }
 
-        protected DefenceMelee(int extern_armorSave, int extern_invulSave) //Конструктор, передающий ArmorSave и InvulSave конструктору базового класса
-            : base(extern_armorSave, extern_invulSave) { }
+        protected DefenceMelee(int extern_armorSave, int extern_invulSave) //Конструктор по умолчанию.
+            : base(extern_armorSave, extern_invulSave)
+        {
+            this.wsDefined = false;
+        }
+
+        protected DefenceMelee(int extern_armorSave, int extern_invulSave, int extern_ws) //Конструктор не по умолчанию. Задает все характеристики сразу при создании объекта.
+            : base(extern_armorSave, extern_invulSave) 
+        {
+            this.WS = extern_ws;
+        }
     }
 }

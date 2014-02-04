@@ -39,13 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Offence\melee\OffenceMelee.cs" />
-    <Compile Include="Offence\melee\OMInfantry.cs" />
-    <Compile Include="Offence\melee\OMVehicle.cs" />
+    <Compile Include="Offence\Melee\OffenceMelee.cs" />
+    <Compile Include="Offence\Melee\OMInfantry.cs" />
+    <Compile Include="Offence\Melee\OMVehicle.cs" />
     <Compile Include="Offence\Offence.cs" />
-    <Compile Include="Offence\ranged\ORVehicle.cs" />
-    <Compile Include="Offence\ranged\ORInfantry.cs" />
-    <Compile Include="Offence\ranged\ORanged.cs" />
+    <Compile Include="Offence\Ranged\ORVehicle.cs" />
+    <Compile Include="Offence\Ranged\ORInfantry.cs" />
+    <Compile Include="Offence\Ranged\OffenceRanged.cs" />
     <Compile Include="Defense\Defense.cs" />
     <Compile Include="Defense\Melee\DefenceMelee.cs" />
     <Compile Include="Defense\Ranged\DefenceRanged.cs" />

@@ -10,13 +10,13 @@ namespace CombatLib.Phases
     {
         protected int condition; //основное условие класса. Для попаданий - условие попадания
                                  //для ран - ранения, для спасбросков - наилучший спас из возможных
-                                 //Диапазон [1; 6].
+                                 //Диапазон [1; 7]. 7 - только если условие невозможно выполнить.
         public int Condition
         {
             get { return this.condition; }
             set
             {
-                if ((value < 1) || (value > 6))
+                if ((value < 1) || (value > 7))
                 {
                     throw new ApplicationException("Condition is OutOfRange [1..6]");
                 }

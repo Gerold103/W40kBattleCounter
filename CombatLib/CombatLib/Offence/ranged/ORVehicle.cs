@@ -6,18 +6,34 @@ using System.Threading.Tasks;
 
 namespace CombatLib
 {
-    public class ORVehicle : OffenceRanged // для всего атакующего и стреляющего и технического
+
+//А Т А К У Ю Щ А Я   В   Д А Л Ь Н Е М   Б О Ю   Т Е Х Н И К А
+
+    public class ORVehicle : OffenceRanged
     {
-        public ORVehicle() //Конструктор без параметров. В конструктор базового класса пересылается 7.
+        public override string ToString() //Возвращает строковое описание объекта.
+        {
+            string Result;
+
+            if (this.aDefined) Result = "A = " + this.A.ToString() + "\n";
+            else Result = "A is Undefined\n";
+
+            if (this.sDefined) Result += "S = " + this.S.ToString() + "\n";
+            else Result += "S is Undefined\n";
+
+            if (this.AP != 7) Result += "AP = " + this.AP.ToString() + "\n";
+            else Result += "AP is Undefined (=7)\n";
+
+            if (this.bsDefined) Result += "BS = " + this.BS.ToString();
+            else Result += "BS is Undefined";
+
+            return Result;
+        }
+
+        public ORVehicle() //Конструктор по умолчанию. AP = 7, остальное не определено.
             : base(7) { }
 
-        public ORVehicle(int extern_a, int extern_s, int extern_bs, int extern_ap) //Конструктор: A, S, BS берутся извне. AP берется извне или = 7 по умолчанию и пересылается
-                                                                                   //в конструктор базового класса
-            : base(extern_ap)
-        {
-            this.A = extern_a;
-            this.S = extern_s;
-            this.BS = extern_bs;
-        }
+        public ORVehicle(int extern_a, int extern_s, int extern_ap, int extern_bs) //Конструктор не по умолчанию.
+            : base(extern_a, extern_s, extern_ap, extern_bs) { }
     }
 }
