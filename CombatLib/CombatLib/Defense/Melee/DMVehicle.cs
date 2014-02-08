@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CombatLib
+namespace CombatLib.Defence.Melee
 {
 
 //Ц Е Л Ь   Т Е Х Н И К А   В   Б Л И Ж Н Е М   Б О Ю

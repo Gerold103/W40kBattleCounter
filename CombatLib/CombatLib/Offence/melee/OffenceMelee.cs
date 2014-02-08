@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CombatLib
+namespace CombatLib.Offence.Melee
 {
 
 //А Т А К У Ю Щ И Й   В   Б Л И Ж Н Е М   Б О Ю

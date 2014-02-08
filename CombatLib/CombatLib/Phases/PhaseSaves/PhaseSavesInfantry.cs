@@ -11,7 +11,10 @@ namespace CombatLib.Phases.PhaseSaves
 
     public class PhaseSavesInfantry : PhaseSaves
     {
-        public PhaseSavesInfantry() 
-            : base() { }
+        public PhaseSavesInfantry(int extern_saves, int extern_condition) //Конструктор не по умолчанию
+            : base(extern_saves, extern_condition) { }
+
+        public PhaseSavesInfantry() //Конструктор по умолчанию
+            : base(0, 7) { }
     }
 }

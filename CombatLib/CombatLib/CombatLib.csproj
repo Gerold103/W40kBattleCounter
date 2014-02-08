@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BattleFuncs\PlayHits.cs" />
+    <Compile Include="BattleFuncs\PlaySaves.cs" />
+    <Compile Include="BattleFuncs\PlayWounds.cs" />
     <Compile Include="Offence\Melee\OffenceMelee.cs" />
     <Compile Include="Offence\Melee\OMInfantry.cs" />
     <Compile Include="Offence\Melee\OMVehicle.cs" />

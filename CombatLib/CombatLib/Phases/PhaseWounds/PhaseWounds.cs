@@ -53,12 +53,13 @@ namespace CombatLib.Phases.PhaseWounds
                                  //после него в массив пишется число 0 и после него новое значение. Позже 0 будет заменен на '->' при переводе
                                  //в строку
 
-        protected PhaseWounds() 
-            : base() //Конструктор: RowWounds = 0, Wounds = 0, WoundCubesStr = "Ран нет". Вызов базового конструктора.
+        protected PhaseWounds(int extern_condition, int extern_rowWounds, int extern_wounds) //Конструктор
+            : base(extern_condition) 
         {
-            this.rowWounds = 0;
-            this.wounds = 0;
+            this.RowWounds = extern_rowWounds;
+            this.Wounds = extern_wounds;
             this.WoundCubesStr = "Ран нет";
+            this.WoundCubes = null;
         }
     }
 }

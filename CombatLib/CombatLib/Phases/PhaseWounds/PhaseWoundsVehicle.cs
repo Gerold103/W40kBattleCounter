@@ -79,13 +79,22 @@ namespace CombatLib.Phases.PhaseWounds
             }
         }
 
-        public PhaseWoundsVehicle() 
-            : base() //Конструктор: RowSlidingWounds = 0, SlidingWounds = 0, RowPunchedWounds = 0, PunchedWounds = 0. Вызов базового конструктора.
+        public PhaseWoundsVehicle() //Конструктор по умолчанию
+            : base(7, 0, 0)
         {
-            this.rowSlidingWounds = 0;
-            this.rowPunchedWounds = 0;
-            this.slidingWounds = 0;
-            this.punchedWounds = 0;
+            this.RowSlidingWounds = 0;
+            this.RowPunchedWounds = 0;
+            this.SlidingWounds = 0;
+            this.PunchedWounds = 0;
+        }
+
+        public PhaseWoundsVehicle(int extern_condition, int extern_rowWounds, int extern_wounds, int extern_rowSlidingWounds, int extern_slidingWounds, int extern_rowPunchedWounds, int extern_punchedWounds) 
+            : base(extern_condition, extern_rowWounds, extern_wounds) //Конструктор не по умолчанию
+        {
+            this.RowSlidingWounds = extern_rowSlidingWounds;
+            this.RowPunchedWounds = extern_rowPunchedWounds;
+            this.SlidingWounds = extern_slidingWounds;
+            this.PunchedWounds = extern_punchedWounds;
         }
     }
 }

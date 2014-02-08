@@ -37,11 +37,12 @@ namespace CombatLib.Phases.PhaseSaves
                                 //после него в массив пишется число 0 и после него новое значени. Позже 0 будет заменен на '->' при переводе
                                 //в строку
 
-        protected PhaseSaves() 
-            : base() //Конструктор: Saves = 0, SaveCubesStr = "Спасбросков нет". Вызов базового конструктора.
+        protected PhaseSaves(int extern_saves, int extern_condition) //Конструктор
+            : base(extern_condition) 
         {
-            this.saves = 0;
+            this.Saves = extern_saves;
             this.SaveCubesStr = "Спасбросков нет";
+            this.SaveCubes = null;
         }
     }
 }

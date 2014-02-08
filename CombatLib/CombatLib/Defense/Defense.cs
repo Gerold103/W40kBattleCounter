@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CombatLib
+namespace CombatLib.Defence
 {
 
 //Ц Е Л Ь

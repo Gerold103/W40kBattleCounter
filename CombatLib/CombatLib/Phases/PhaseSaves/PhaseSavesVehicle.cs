@@ -45,11 +45,18 @@ namespace CombatLib.Phases.PhaseSaves
             }
         }
 
-        public PhaseSavesVehicle() 
-            : base() //Конструктор: SlidingSaves = 0, PunchedSaves = 0. Вызов базового конструктора.
+        public PhaseSavesVehicle() //Конструкто по умолчанию
+            : base(0, 7)
         {
-            this.punchedSaves = 0;
-            this.slidingSaves = 0;
+            this.PunchedSaves = 0;
+            this.SlidingSaves = 0;
+        }
+
+        public PhaseSavesVehicle(int extern_saves, int extern_condition, int extern_slidingSaves, int extern_punchedSaves) //Конструктор не по умолчанию
+            : base(extern_saves, extern_condition) 
+        {
+            this.PunchedSaves = extern_punchedSaves;
+            this.SlidingSaves = extern_slidingSaves;
         }
     }
 }

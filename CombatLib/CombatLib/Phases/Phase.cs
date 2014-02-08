@@ -27,9 +27,9 @@ namespace CombatLib.Phases
             }
         }
 
-        protected Phase() //Конструктор: Condition = 7;
+        protected Phase(int extern_condition) //Конструктор
         {
-            this.condition = 7;
+            this.Condition = extern_condition;
         }
     }
 }

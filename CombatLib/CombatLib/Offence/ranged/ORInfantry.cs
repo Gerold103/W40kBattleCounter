@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CombatLib
+namespace CombatLib.Offence.Ranged
 {
 
 //А Т А К У Ю Щ И Й   В   Д А Л Ь Н Е М   Б О Ю   П Е Х О Т И Н Е Ц

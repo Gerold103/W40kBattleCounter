@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CombatLib.Phases
+namespace CombatLib.Phases.PhaseHits
 {
 
 //П О П А Д А Н И Я
@@ -12,13 +12,13 @@ namespace CombatLib.Phases
     public abstract class PhaseHits: Phase
     {
         protected int additionalCondition; //дополнительное условие попадания. Обычно появляется,
-                                           //когда BS атакующего выше 5. Диапазон [1; 6]
+                                           //когда BS атакующего выше 5. Диапазон [1; 7] 7 - только если условие невозможно выполнить
         public int AdditionalCondition
         {
             get { return this.additionalCondition; }
             set
             {
-                if ((value < 1) || (value > 6))
+                if ((value < 1) || (value > 7))
                 {
                     throw new ApplicationException("AdditionalCondition is OutOfRange [1..6]");
                 }
@@ -53,12 +53,12 @@ namespace CombatLib.Phases
                                //после него в массив пишется число 0 и после него новое значение. Позже 0 будет заменен на '->' при переводе
                                //в строку
 
-        protected PhaseHits() 
-            : base() //Конструктор: AdditionalCondition = 7, Hits = 0, HitCubesStr = "Попаданий нет". Вызов конструктора базового класса.
+        protected PhaseHits(int extern_AddCond, int extern_hits, int extern_condition) 
+            : base(extern_condition) //Конструктор
         {
-            this.additionalCondition = 7;
-            this.hits = 0;
-            this.HitCubesStr = "Попаданий нет";
+            this.AdditionalCondition = extern_AddCond;
+            this.Hits = extern_hits;
+            this.HitCubesStr = "Значение не определено";
             this.HitCubes = null;
         }
     }
