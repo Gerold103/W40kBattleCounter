@@ -26,8 +26,7 @@ namespace CombatLib
                 if (elem != 0) res += (char)(elem + '0');
                 else
                 {
-                    res += '-';
-                    res += '>';
+                    res += '→';
                 }
                 res += ' ';
             }
