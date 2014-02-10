@@ -19,8 +19,16 @@ namespace CombatLib.BattleFuncs
         //результат записывается в экземпляр класса PhaseWoundsInfantry,
         //случайные числа получаются из экземпляра класса Random, возвращает общее количество ран
         {
-            Console.WriteLine("PlayWounds, RangedPlay, aim - infantry");
-            return 0;
+            Console.WriteLine("PlayWounds, RangedPlay, aim - infantry"); //отладочный вывод
+            int i; //счетчик всех бросков на раны
+            Wounds.WoundCubes = new int[Hits.Hits]; //выделяем память под массив кубов ран
+
+            for (i = 0; i < Hits.Hits; i++) //цикл бросков кубов
+            {
+                Wounds.WoundCubes[i] = RndGenerator.Next(1, 7);
+                if (Wounds.WoundCubes[i] >= Wounds.Condition) Wounds.RowWounds++;
+            }
+            return Wounds.RowWounds;
         }
 
         public static int RangedPlay(CombatLib.Offence.Ranged.OffenceRanged AttackingPlayer, CombatLib.Defence.Ranged.DRVehicle DefendingPlayer, CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits,
@@ -28,8 +36,20 @@ namespace CombatLib.BattleFuncs
         //результат записывается в экземпляр класса PhaseWoundsVehicle,
         //случайные числа получаются из экземпляра класса Random, возвращает общее количество ран
         {
-            Console.WriteLine("PlayWounds, RangedPlay, aim - vehicle");
-            return 0;
+            Console.WriteLine("PlayWounds, RangedPlay, aim - vehicle"); //отладочный вывод
+            int i; //счетчик всех бросков на раны
+            Wounds.WoundCubes = new int[Hits.Hits]; //выделяем память под массив кубов ран
+
+            for (i = 0; i < Hits.Hits; i++) //цикл бросков кубов
+            {
+                Wounds.WoundCubes[i] = RndGenerator.Next(1, 7);
+                if (Wounds.WoundCubes[i] + AttackingPlayer.S < Wounds.Condition) continue; //если куб + сила атакующего меньше условия попадания, то ничего не происходит
+                else if (Wounds.WoundCubes[i] + AttackingPlayer.S == Wounds.Condition) Wounds.RowSlidingWounds++; //если эта величина равна условию попадания, то ранение по технике засчитывается,
+                                                                                                                  //скользящее
+                else Wounds.RowPunchedWounds++; //если больше, то ранение - пробивающее
+            }
+            Wounds.RowWounds = Wounds.RowPunchedWounds + Wounds.RowSlidingWounds;
+            return Wounds.RowWounds;
         }
 
 //Б Л И Ж Н И Й   Б О Й
