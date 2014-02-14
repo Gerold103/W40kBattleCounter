@@ -24,14 +24,31 @@ namespace CombatLib.BattleFuncs
                 if (Saves.SaveCubes[i] >= Saves.Condition) Saves.Saves++;
             }
             Wounds.Wounds = Wounds.RowWounds - Saves.Saves; //Итоговое количество ран = разница между потенциальными и спасшимися
-            return 0;
+            return Saves.Saves;
         }
 
         public static int Play(ref CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds, ref CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves, ref Random RndGenerator) //Спасброски за технику, начальные данные
         //берутся из PhaseWoundsVehicle, результат записывается в PhaseSavesVehicle, случайные числа получаются из экземпляра класса Random, возвращает количество спасенных
         {
-            Console.WriteLine("PlaySaves, aim - vehicle");
-            return 0;
+            Console.WriteLine("PlaySaves, aim - vehicle"); //отладочный вывод
+            int i; //счетчик всех попыток спасения
+            Saves.SaveCubes = new int[Wounds.RowWounds]; //выделение памяти под массив кубов на спасброски. Количество бросков = количеству потенциальных ран
+
+            for (i = 0; i < Wounds.RowPunchedWounds; i++) //В первом цикле пробуем спасать пробивающие раны в силу их наибольшей опасности
+            {
+                Saves.SaveCubes[i] = RndGenerator.Next(1, 7);
+                if (Saves.SaveCubes[i] >= Saves.Condition) Saves.PunchedSaves++;
+            }
+            for (i = Wounds.RowPunchedWounds; i < Wounds.RowWounds; i++) //Нумерация i такова, чтобы продолжить заполнение массива после спасов на пробивающие раны
+            {
+                Saves.SaveCubes[i] = RndGenerator.Next(1, 7);
+                if (Saves.SaveCubes[i] >= Saves.Condition) Saves.SlidingSaves++;
+            }
+            Saves.Saves = Saves.PunchedSaves + Saves.SlidingSaves; //Обновляем количество спасенных в итоге
+            Wounds.PunchedWounds = Wounds.RowPunchedWounds - Saves.PunchedSaves; //Обновляем количество ран в итоге после спасов
+            Wounds.SlidingWounds = Wounds.RowSlidingWounds - Saves.SlidingSaves;
+            Wounds.Wounds = Wounds.RowWounds - Saves.Saves;
+            return Saves.Saves;
         }
     }
 }

@@ -83,15 +83,25 @@ namespace Wh40k
         private void CheckBoxDefIsInfantry_Checked(object sender, RoutedEventArgs e) //если флаг того, что цель пехота установлен, то производятся косметические корректировки внешнего вида
             //одного поля и пропадает флаг открытости техники
         {
-            if (CheckBoxDefIsOpenVeh != null) CheckBoxDefIsOpenVeh.Visibility = System.Windows.Visibility.Hidden;
-            if (LabelDefenceT != null) LabelDefenceT.Content = "T";
+            if (CheckBoxDefIsOpenVeh != null) CheckBoxDefIsOpenVeh.Visibility = System.Windows.Visibility.Hidden; //скрыть чекбокс открытой техники
+            if (LabelDefenceT != null) LabelDefenceT.Content = "T"; //переименовать поле защиты
+            if (CheckBoxDefArmorSave != null) CheckBoxDefArmorSave.Visibility = System.Windows.Visibility.Visible; //сделать видимым блок спасброска по броне
+            if ((TextBoxDefArmorSave != null) && (CheckBoxDefArmorSave.IsChecked == true)) TextBoxDefArmorSave.Visibility = System.Windows.Visibility.Visible;
+
+            if (CheckBoxDefInvulSave != null) CheckBoxDefInvulSave.Visibility = System.Windows.Visibility.Visible; //сделать видимым блок непробиваемого спасброска
+            if ((TextBoxDefInvulSave != null) && (CheckBoxDefInvulSave.IsChecked == true)) TextBoxDefInvulSave.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void CheckBoxDefIsInfantry_Unchecked(object sender, RoutedEventArgs e) //если флаг того, что цель пехота сброшен, то производятся косметические корректировки внешнего вида
             //одного поля и появляется флаг открытости техники
         {
-            if (CheckBoxDefIsOpenVeh != null) CheckBoxDefIsOpenVeh.Visibility = System.Windows.Visibility.Visible;
-            if (LabelDefenceT != null) LabelDefenceT.Content = "Броня";
+            if (CheckBoxDefIsOpenVeh != null) CheckBoxDefIsOpenVeh.Visibility = System.Windows.Visibility.Visible; //открыть чекбокс открытой техники
+            if (LabelDefenceT != null) LabelDefenceT.Content = "Броня"; //переименовать поле защиты
+            if (CheckBoxDefArmorSave != null) CheckBoxDefArmorSave.Visibility = System.Windows.Visibility.Hidden; //сделать скрытым блок спасброска по броне
+            if (TextBoxDefArmorSave != null) TextBoxDefArmorSave.Visibility = System.Windows.Visibility.Hidden;
+
+            if (CheckBoxDefInvulSave != null) CheckBoxDefInvulSave.Visibility = System.Windows.Visibility.Hidden; //сделать скрытым блок непробиваемого спасброска
+            if (TextBoxDefInvulSave != null) TextBoxDefInvulSave.Visibility = System.Windows.Visibility.Hidden;
         }
     }
 }
