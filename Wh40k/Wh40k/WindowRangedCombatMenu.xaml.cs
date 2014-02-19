@@ -103,5 +103,109 @@ namespace Wh40k
             if (CheckBoxDefInvulSave != null) CheckBoxDefInvulSave.Visibility = System.Windows.Visibility.Hidden; //сделать скрытым блок непробиваемого спасброска
             if (TextBoxDefInvulSave != null) TextBoxDefInvulSave.Visibility = System.Windows.Visibility.Hidden;
         }
+
+//К Н О П К А   " С Ы Г Р А Т Ь   Б О Й "
+
+        private void ButtonPlayCombat_Click(object sender, RoutedEventArgs e) //Клик
+        {
+            string errLoc = "#Err"; //переменная для хранения обрабатываемого в данный момент поля меню
+            if (this.CheckBoxOffIsInfantry.IsChecked == true) //если атакующий - пехота
+            {
+                CombatLib.Offence.Ranged.ORInfantry AttackingPlayer = new CombatLib.Offence.Ranged.ORInfantry();
+                try
+                {
+                    errLoc = "A";
+                    AttackingPlayer.A = Convert.ToInt32(this.TextBoxOffenceA.Text);
+                    errLoc = "S";
+                    AttackingPlayer.S = Convert.ToInt16(this.TextBoxOffenceS.Text);
+                    errLoc = "BS";
+                    AttackingPlayer.BS = Convert.ToInt16(this.TextBoxOffenceBS.Text);
+                    errLoc = "AP";
+                    AttackingPlayer.AP = Convert.ToInt16(this.TextBoxOffenceAP.Text);
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("В поле " + errLoc + " введено не число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (OverflowException)
+                {
+                    MessageBox.Show("В поле " + errLoc + "введено слишком большое по модулю число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (ApplicationException excpt)
+                {
+                    MessageBox.Show(excpt.Message, "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (Exception excpt)
+                {
+                    MessageBox.Show(excpt.Message + "\nСообщите разработчикам об этой ошибке", "Неизвестная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (this.CheckBoxDefIsInfantry.IsChecked == true) //если защищающийся - пехота
+                {
+                    CombatLib.Defence.Ranged.DRInfantry DefendingPlayer = new CombatLib.Defence.Ranged.DRInfantry();
+                    try
+                    {
+                        errLoc = "ArmorSave";
+                        DefendingPlayer.ArmorSave = Convert.ToInt16(this.TextBoxDefArmorSave.Text);
+                        errLoc = "InvulSave";
+                        DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
+                        errLoc = "CoverSave";
+                        DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        errLoc = this.LabelDefenceT.Content.ToString();
+                        DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("В поле " + errLoc + " введено не число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (OverflowException)
+                    {
+                        MessageBox.Show("В поле " + errLoc + "введено слишком большое по модулю число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (ApplicationException excpt)
+                    {
+                        MessageBox.Show(excpt.Message, "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (Exception excpt)
+                    {
+                        MessageBox.Show(excpt.Message + "\nСообщите разработчикам об этой ошибке", "Неизвестная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+            }
+        }
+
+//Ф У Н К Ц И И   О Т Ы Г Р Ы Ш А   Б О Я
+
+        //Т Е Х Н И К А   П Р О Т И В   Т Е Х Н И К И
+        private void PlayVehicleVSVehicle()
+        {
+            MessageBox.Show("VehicleVSVehicle");
+        }
+
+        //Т Е Х Н И К А   П Р О Т И В   П Е Х О Т Ы
+        private void PlayVehicleVSInfantry()
+        {
+            MessageBox.Show("VehicleVSInfantry");
+        }
+
+        //П Е Х О Т А   П Р О Т И В   Т Е Х Н И К И
+        private void PlayInfantryVSVehicle()
+        {
+            MessageBox.Show("InfantryVSVehicle");
+        }
+
+        //П Е Х О Т А   П Р О Т И В   П Е Х О Т Ы
+        private void PlayInfantryVSInfantry()
+        {
+            MessageBox.Show("InfantryVSInfantry");
+        }
     }
 }

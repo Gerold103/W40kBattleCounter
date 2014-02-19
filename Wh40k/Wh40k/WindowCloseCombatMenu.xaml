@@ -12,19 +12,22 @@
         <Grid.Background>
             <ImageBrush Stretch="UniformToFill" ImageSource="CloseCombatBackground2.jpg"/>
         </Grid.Background>
-        
+
         <!-- Labels of Offence-->
         <Label Content="A" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,152,0,0" Background="#FF4B4B4B" Width="30" Height="25" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center"/>
         <Label Content="S" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,192,0,0" Background="#FF4B4B4B" Width="30" Height="25" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center"/>
         <Label Content="WS" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,232,0,0" Background="#FF4B4B4B" Width="30" Height="25" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center"/>
         <Label Content="AP" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,272,0,0" Background="#FF4B4B4B" Width="30" Height="25" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center"/>
-        
+
         <!-- Text Boxes of Offence -->
         <TextBox x:Name="TextBoxOffenceA"  Margin="76,152,0,0" TextWrapping="NoWrap" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxOffenceS" HorizontalAlignment="Left" Height="25" Margin="76,192,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxOffenceWS" HorizontalAlignment="Left" Height="25" Margin="76,232,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxOffenceAP" HorizontalAlignment="Left" Height="25" Margin="76,272,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
         
+        <!-- Check Boxes of Offence -->
+        <CheckBox x:Name="CheckBoxOffIsInfantry" Content="Атакующий - пехота?" HorizontalAlignment="Left" Margin="29,315,0,0" VerticalAlignment="Top" IsChecked="True" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13"/>
+
         <!-- Buttons -->
         <Button x:Name="ButtonPlayCombat" Content="Сыграть бой" Margin="225,257,0,0" Width="140" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif" Panel.ZIndex="-2" BorderThickness="0" IsDefault="True">
             <Button.Background>
@@ -61,7 +64,7 @@
         <CheckBox x:Name="CheckBoxDefIsInfantry" Content="Цель - пехота?" HorizontalAlignment="Left" Margin="437,315,0,0" VerticalAlignment="Top" IsChecked="True" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13"
                   Checked="CheckBoxDefIsInfantry_Checked" Unchecked="CheckBoxDefIsInfantry_Unchecked"/>
         <CheckBox x:Name="CheckBoxDefIsOpenVeh" Content="Техника открыта?" HorizontalAlignment="Left" Margin="437,336,0,0" VerticalAlignment="Top" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13"/>
-        
+
         <!-- Images -->
         <Image HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="158" Height="119" Source="Sword.png"/>
         <Image HorizontalAlignment="Left" Margin="451,6,0,0" VerticalAlignment="Top" Width="100" Height="130" Source="Shield.png"/>

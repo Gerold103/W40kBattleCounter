@@ -22,6 +22,9 @@
         <TextBox x:Name="TextBoxOffenceS" HorizontalAlignment="Left" Height="25" Margin="76,192,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxOffenceBS" HorizontalAlignment="Left" Height="25" Margin="76,232,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxOffenceAP" HorizontalAlignment="Left" Height="25" Margin="76,272,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
+        
+        <!--Check Boxes of Offence-->
+        <CheckBox x:Name="CheckBoxOffIsInfantry" Content="Атакующий - пехота?" HorizontalAlignment="Left" Margin="21,324,0,0" VerticalAlignment="Top" IsChecked="True" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13"/>
                 
         <!-- Check Boxes of Defence-->
         <CheckBox x:Name="CheckBoxDefArmorSave" Content="Спасбросок за броню" HorizontalAlignment="Left" Margin="426,151,0,0" VerticalAlignment="Top" Style="{DynamicResource W40kCheckBoxStyle}" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Checked="CheckBoxDefArmorSave_Checked" Unchecked="CheckBoxDefArmorSave_Unchecked" IsChecked="True"/>
@@ -40,7 +43,7 @@
         <Label x:Name="LabelDefenceT" Content="T" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,302,120,0" Background="#FF4B4B4B" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center" MinWidth="30" MinHeight="25"/>
 
         <!-- Buttons -->
-        <Button x:Name="ButtonPlayCombat" Content="Сыграть бой" Margin="225,257,0,0" Width="140" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif" Panel.ZIndex="-2" BorderThickness="0" IsDefault="True">
+        <Button x:Name="ButtonPlayCombat" Content="Сыграть бой" Margin="225,257,0,0" Width="140" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif" Panel.ZIndex="-2" BorderThickness="0" IsDefault="True" Click="ButtonPlayCombat_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFB28EB6" Offset="0"/>

@@ -24,6 +24,7 @@ namespace CombatLib.BattleFuncs
                 if (Saves.SaveCubes[i] >= Saves.Condition) Saves.Saves++;
             }
             Wounds.Wounds = Wounds.RowWounds - Saves.Saves; //Итоговое количество ран = разница между потенциальными и спасшимися
+            Saves.SaveCubesStr = CombatLib.Addition.AdditionalFuncs.ReduceCubesToStr(Saves.SaveCubes); //преобразуем кубы на спасы в строку
             return Saves.Saves;
         }
 
@@ -48,6 +49,7 @@ namespace CombatLib.BattleFuncs
             Wounds.PunchedWounds = Wounds.RowPunchedWounds - Saves.PunchedSaves; //Обновляем количество ран в итоге после спасов
             Wounds.SlidingWounds = Wounds.RowSlidingWounds - Saves.SlidingSaves;
             Wounds.Wounds = Wounds.RowWounds - Saves.Saves;
+            Saves.SaveCubesStr = CombatLib.Addition.AdditionalFuncs.ReduceCubesToStr(Saves.SaveCubes); //преобразуем кубы на спасы в строку
             return Saves.Saves;
         }
     }
