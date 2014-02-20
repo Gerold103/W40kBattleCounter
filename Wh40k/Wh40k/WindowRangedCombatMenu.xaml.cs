@@ -144,7 +144,7 @@ namespace Wh40k
                     return;
                 }
 
-                if (this.CheckBoxDefIsInfantry.IsChecked == true) //если защищающийся - пехота
+                if (this.CheckBoxDefIsInfantry.IsChecked == true) //если защищающийся - пехота и атакующий - пехота
                 {
                     CombatLib.Defence.Ranged.DRInfantry DefendingPlayer = new CombatLib.Defence.Ranged.DRInfantry();
                     try
@@ -178,6 +178,144 @@ namespace Wh40k
                         MessageBox.Show(excpt.Message + "\nСообщите разработчикам об этой ошибке", "Неизвестная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+                    this.PlayInfantryVSInfantry(AttackingPlayer, DefendingPlayer);
+                    return;
+                }
+                else //если защищающийся - техника и атакующий - пехота
+                {
+                    CombatLib.Defence.Ranged.DRVehicle DefendingPlayer = new CombatLib.Defence.Ranged.DRVehicle();
+                    try
+                    {
+                        DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        errLoc = this.LabelDefenceT.Content.ToString();
+                        DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("В поле " + errLoc + " введено не число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (OverflowException)
+                    {
+                        MessageBox.Show("В поле " + errLoc + "введено слишком большое по модулю число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (ApplicationException excpt)
+                    {
+                        MessageBox.Show(excpt.Message, "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (Exception excpt)
+                    {
+                        MessageBox.Show(excpt.Message + "\nСообщите разработчикам об этой ошибке", "Неизвестная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    this.PlayInfantryVSVehicle(AttackingPlayer, DefendingPlayer);
+                    return;
+                }
+            }
+            else //атакующий - техника
+            {
+                CombatLib.Offence.Ranged.ORVehicle AttackingPlayer = new CombatLib.Offence.Ranged.ORVehicle();
+                try
+                {
+                    errLoc = "A";
+                    AttackingPlayer.A = Convert.ToInt32(this.TextBoxOffenceA.Text);
+                    errLoc = "S";
+                    AttackingPlayer.S = Convert.ToInt16(this.TextBoxOffenceS.Text);
+                    errLoc = "BS";
+                    AttackingPlayer.BS = Convert.ToInt16(this.TextBoxOffenceBS.Text);
+                    errLoc = "AP";
+                    AttackingPlayer.AP = Convert.ToInt16(this.TextBoxOffenceAP.Text);
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("В поле " + errLoc + " введено не число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (OverflowException)
+                {
+                    MessageBox.Show("В поле " + errLoc + "введено слишком большое по модулю число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (ApplicationException excpt)
+                {
+                    MessageBox.Show(excpt.Message, "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (Exception excpt)
+                {
+                    MessageBox.Show(excpt.Message + "\nСообщите разработчикам об этой ошибке", "Неизвестная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (this.CheckBoxDefIsInfantry.IsChecked == true) //атакующий - техника и защищающийся - пехота
+                {
+                    CombatLib.Defence.Ranged.DRInfantry DefendingPlayer = new CombatLib.Defence.Ranged.DRInfantry();
+                    try
+                    {
+                        errLoc = "ArmorSave";
+                        DefendingPlayer.ArmorSave = Convert.ToInt16(this.TextBoxDefArmorSave.Text);
+                        errLoc = "InvulSave";
+                        DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
+                        errLoc = "CoverSave";
+                        DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        errLoc = this.LabelDefenceT.Content.ToString();
+                        DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("В поле " + errLoc + " введено не число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (OverflowException)
+                    {
+                        MessageBox.Show("В поле " + errLoc + "введено слишком большое по модулю число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (ApplicationException excpt)
+                    {
+                        MessageBox.Show(excpt.Message, "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (Exception excpt)
+                    {
+                        MessageBox.Show(excpt.Message + "\nСообщите разработчикам об этой ошибке", "Неизвестная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    this.PlayVehicleVSInfantry(AttackingPlayer, DefendingPlayer);
+                    return;
+                }
+                else //атакующий - техника и защищающийся - техника
+                {
+                    CombatLib.Defence.Ranged.DRVehicle DefendingPlayer = new CombatLib.Defence.Ranged.DRVehicle();
+                    try
+                    {
+                        DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        errLoc = this.LabelDefenceT.Content.ToString();
+                        DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("В поле " + errLoc + " введено не число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (OverflowException)
+                    {
+                        MessageBox.Show("В поле " + errLoc + "введено слишком большое по модулю число.", "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (ApplicationException excpt)
+                    {
+                        MessageBox.Show(excpt.Message, "Ошибка в " + errLoc, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    catch (Exception excpt)
+                    {
+                        MessageBox.Show(excpt.Message + "\nСообщите разработчикам об этой ошибке", "Неизвестная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    this.PlayVehicleVSVehicle(AttackingPlayer, DefendingPlayer);
+                    return;
                 }
             }
         }
@@ -185,27 +323,39 @@ namespace Wh40k
 //Ф У Н К Ц И И   О Т Ы Г Р Ы Ш А   Б О Я
 
         //Т Е Х Н И К А   П Р О Т И В   Т Е Х Н И К И
-        private void PlayVehicleVSVehicle()
+        private void PlayVehicleVSVehicle(CombatLib.Offence.Ranged.ORVehicle AttackingPlayer, CombatLib.Defence.Ranged.DRVehicle DefendingPlayer)
         {
             MessageBox.Show("VehicleVSVehicle");
         }
 
         //Т Е Х Н И К А   П Р О Т И В   П Е Х О Т Ы
-        private void PlayVehicleVSInfantry()
+        private void PlayVehicleVSInfantry(CombatLib.Offence.Ranged.ORVehicle AttackingPlayer, CombatLib.Defence.Ranged.DRInfantry DefendingPlayer)
         {
             MessageBox.Show("VehicleVSInfantry");
         }
 
         //П Е Х О Т А   П Р О Т И В   Т Е Х Н И К И
-        private void PlayInfantryVSVehicle()
+        private void PlayInfantryVSVehicle(CombatLib.Offence.Ranged.ORInfantry AttackingPlayer, CombatLib.Defence.Ranged.DRVehicle DefendingPlayer)
         {
             MessageBox.Show("InfantryVSVehicle");
         }
 
         //П Е Х О Т А   П Р О Т И В   П Е Х О Т Ы
-        private void PlayInfantryVSInfantry()
+        private void PlayInfantryVSInfantry(CombatLib.Offence.Ranged.ORInfantry AttackingPlayer, CombatLib.Defence.Ranged.DRInfantry DefendingPlayer)
         {
             MessageBox.Show("InfantryVSInfantry");
+            MessageBox.Show(AttackingPlayer.ToString());
+            MessageBox.Show(DefendingPlayer.ToString());
+            Random RndGenerator = new Random();
+            CombatLib.Phases.PhaseHits.PhaseHitsInfantry Hits = new CombatLib.Phases.PhaseHits.PhaseHitsInfantry();
+            CombatLib.Offence.Ranged.OffenceRanged baseORInfantry = AttackingPlayer;
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsInfantry = Hits;
+            CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsInfantry, ref RndGenerator);
+            MessageBox.Show("Additional Condition = " + Hits.AdditionalCondition.ToString() + "\n" +
+                "Condition = " + Hits.Condition.ToString() + "\n" +
+                "HitCubes = " + Hits.HitCubes.ToString() + "\n" +
+                "HitCubesStr = " + Hits.HitCubesStr + "\n" +
+                "Hits = " + Hits.Hits.ToString());
         }
     }
 }

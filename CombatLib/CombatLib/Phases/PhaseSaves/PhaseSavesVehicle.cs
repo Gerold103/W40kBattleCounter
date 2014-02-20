@@ -58,5 +58,27 @@ namespace CombatLib.Phases.PhaseSaves
             this.PunchedSaves = extern_punchedSaves;
             this.SlidingSaves = extern_slidingSaves;
         }
+
+        public override string ToString() //возвращает строковое описание объекта
+        {
+            string Result;
+
+            if (this.Condition != 7) Result = "Condition = " + this.Condition.ToString() + "\n";
+            else Result = "Condition is Undefined (=7)\n";
+
+            if (this.PunchedSaves != 0) Result += "Punched Saves = " + this.PunchedSaves.ToString() + "\n";
+            else Result += "Punched Saves are Undefined (or defined but = 0)\n";
+
+            if (this.SlidingSaves != 0) Result += "Sliding Saves = " + this.SlidingSaves.ToString() + "\n";
+            else Result += "Sliding Saves are Undefined (or defined but = 0)\n";
+
+            if (this.Saves != 0) Result += "Summary Saves = " + this.Saves.ToString() + "\n";
+            else Result += "Summary Saves are Undefined (or defined but = 0)\n";
+
+            if (this.SaveCubesStr != null) Result += "Save Cubes = " + this.SaveCubesStr;
+            else Result += "Save Cubes are Undefined (=null)";
+
+            return Result;
+        }
     }
 }

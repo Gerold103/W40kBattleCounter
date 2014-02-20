@@ -96,5 +96,33 @@ namespace CombatLib.Phases.PhaseWounds
             this.SlidingWounds = extern_slidingWounds;
             this.PunchedWounds = extern_punchedWounds;
         }
+
+        public override string ToString() //возвращает строковое описание объекта
+        {
+            string Result;
+
+            if (this.Condition != 7) Result = "Condition = " + this.Condition.ToString() + "\n";
+            else Result = "Conditon is Undefined (=7)\n";
+
+            if (this.RowPunchedWounds != 0) Result += "Row Punched Wounds = " + this.RowPunchedWounds.ToString() + "\n";
+            else Result += "Row Punched Wounds are Undefined (or defined but = 0)\n";
+
+            if (this.PunchedWounds != 0) Result += "Punched Wounds = " + this.PunchedWounds.ToString() + "\n";
+            else Result += "Punched Wounds are Undefined (or defined but = 0)\n";
+
+            if (this.RowSlidingWounds != 0) Result += "Row Sliding Wounds = " + this.RowSlidingWounds.ToString() + "\n";
+            else Result += "Sliding Wounds are Undefine (or defined but = 0)\n";
+
+            if (this.RowWounds != 0) Result += "Summary Row Wounds = " + this.RowWounds.ToString() + "\n";
+            else Result += "Sunnary Row Wounds are Undefined (or defined but = 0)\n";
+
+            if (this.Wounds != 0) Result += "Summary Wounds = " + this.Wounds.ToString() + "\n";
+            else Result += "Summary Wounds are Undefined (or defined but = 0)\n";
+
+            if (this.WoundCubesStr != null) Result += "Wound Cubes = " + this.WoundCubesStr;
+            else Result += "Wounds Cubes are Undefined (=null)";
+
+            return Result;
+        }
     }
 }

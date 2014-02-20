@@ -16,5 +16,23 @@ namespace CombatLib.Phases.PhaseHits
 
         public PhaseHitsVehicle() //Конструктор по умолчанию
             : base(7, 0, 7) { }
+
+        public override string ToString() //возвращает строковое описание объекта
+        {
+            string Result;
+            if (this.Condition != 7) Result = "Condition = " + this.Condition.ToString() + "\n";
+            else Result = "Condition is Undefined (=7)\n";
+
+            if (this.AdditionalCondition != 7) Result += "Additional Condition = " + this.AdditionalCondition.ToString() + "\n";
+            else Result += "Additional Condition is Undefined (=7)\n";
+
+            if (this.HitCubesStr != null) Result += "Hit Cubes = " + this.HitCubesStr + "\n";
+            else Result += "Cubes for hits is Undefined (=null)\n";
+
+            if (this.Hits != 0) Result += "Hits = " + this.Hits.ToString();
+            else Result += "Hits is Undefined (or defined but = 0)";
+
+            return Result;
+        }
     }
 }

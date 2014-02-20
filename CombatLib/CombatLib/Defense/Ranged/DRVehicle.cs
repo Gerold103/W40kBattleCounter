@@ -59,8 +59,8 @@ namespace CombatLib.Defence.Ranged
             this.tDefined = false;
         }
 
-        public DRVehicle(int extern_armorSave, int extern_invulSave, int extern_coverSave, int extern_t) //Конструктор не по умолчанию. Самостоятельно обрабатывает только T.
-            : base(extern_armorSave, extern_invulSave, extern_coverSave)
+        public DRVehicle(int extern_coverSave, int extern_t) //Конструктор не по умолчанию. Самостоятельно обрабатывает только T.
+            : base(7, 7, extern_coverSave)
         {
             this.T = extern_t;
         }
