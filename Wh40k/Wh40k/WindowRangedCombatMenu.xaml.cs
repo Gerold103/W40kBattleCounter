@@ -343,19 +343,103 @@ namespace Wh40k
         //П Е Х О Т А   П Р О Т И В   П Е Х О Т Ы
         private void PlayInfantryVSInfantry(CombatLib.Offence.Ranged.ORInfantry AttackingPlayer, CombatLib.Defence.Ranged.DRInfantry DefendingPlayer)
         {
+            //отладочные выводы
             MessageBox.Show("InfantryVSInfantry");
             MessageBox.Show(AttackingPlayer.ToString());
             MessageBox.Show(DefendingPlayer.ToString());
-            Random RndGenerator = new Random();
-            CombatLib.Phases.PhaseHits.PhaseHitsInfantry Hits = new CombatLib.Phases.PhaseHits.PhaseHitsInfantry();
-            CombatLib.Offence.Ranged.OffenceRanged baseORInfantry = AttackingPlayer;
-            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsInfantry = Hits;
+
+            //инициализация объектов
+            Random RndGenerator = new Random(); //генератор рандомных числе - один на все время работы программы со случайной затравкой
+            CombatLib.Phases.PhaseHits.PhaseHitsInfantry Hits = new CombatLib.Phases.PhaseHits.PhaseHitsInfantry(); //класс фазы попаданий
+            CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry Wounds = new CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry(); //класс фазы ран
+            CombatLib.Phases.PhaseSaves.PhaseSavesInfantry Saves = new CombatLib.Phases.PhaseSaves.PhaseSavesInfantry(); //класс фазы спасбросков
+
+            //указатели на родителей классов
+            CombatLib.Offence.Ranged.OffenceRanged baseORInfantry = AttackingPlayer; //родитель атакующего игрока
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsInfantry = Hits; //родитель фазы попаданий
+
+            //подготовительные действия перед игрой
+
+            //вычисление наилучшего спасброска
+            if ((AttackingPlayer.AP <= DefendingPlayer.ArmorSave) || (DefendingPlayer.ArmorSave >= DefendingPlayer.CoverSave) && (DefendingPlayer.ArmorSave >= DefendingPlayer.InvulSave))
+            {
+                if (DefendingPlayer.CoverSave >= DefendingPlayer.InvulSave) Saves.Condition = DefendingPlayer.InvulSave;
+                else Saves.Condition = DefendingPlayer.CoverSave;
+            }
+            else
+            {
+                if (DefendingPlayer.InvulSave >= DefendingPlayer.CoverSave)
+                {
+                    if (DefendingPlayer.ArmorSave <= DefendingPlayer.CoverSave) Saves.Condition = DefendingPlayer.ArmorSave;
+                    else Saves.Condition = DefendingPlayer.CoverSave;
+                }
+                else
+                {
+                    if (DefendingPlayer.ArmorSave <= DefendingPlayer.InvulSave) Saves.Condition = DefendingPlayer.ArmorSave;
+                    else Saves.Condition = DefendingPlayer.InvulSave;
+                }
+            }
+
+            //И Г Р А
+
+            //попадания
             CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsInfantry, ref RndGenerator);
-            MessageBox.Show("Additional Condition = " + Hits.AdditionalCondition.ToString() + "\n" +
-                "Condition = " + Hits.Condition.ToString() + "\n" +
-                "HitCubes = " + Hits.HitCubes.ToString() + "\n" +
-                "HitCubesStr = " + Hits.HitCubesStr + "\n" +
-                "Hits = " + Hits.Hits.ToString());
+            if (Hits.Hits == 0)
+            {
+                this.DisplayResult(Hits);
+                return;
+            }
+
+            //раны
+            CombatLib.BattleFuncs.PlayWounds.RangedPlay(baseORInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            if (Wounds.RowWounds == 0)
+            {
+                this.DisplayResult(Hits, Wounds);
+                return;
+            }
+
+            //спасы
+            CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            this.DisplayResult(Hits, Wounds, Saves);
+            return;
+        }
+
+//В Ы В О Д   Р Е З У Л Ь Т А Т А
+
+        //против пехоты
+        void DisplayResult(CombatLib.Phases.PhaseHits.PhaseHitsInfantry Hits, CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry Wounds = null, CombatLib.Phases.PhaseSaves.PhaseSavesInfantry Saves = null)
+        {
+            MessageBox.Show(Hits.ToString(), "Попадания", MessageBoxButton.OK);
+            if (Wounds != null) MessageBox.Show(Wounds.ToString(), "Раны", MessageBoxButton.OK);
+            if (Saves != null) MessageBox.Show(Saves.ToString(), "Спасброски", MessageBoxButton.OK);
+            return;
+        }
+
+//Д О П О Л Н Е Н И Я
+
+        void ButtonFillFieldsWithRnd_Click(object sender, RoutedEventArgs e)
+        {
+            Random RndGenerator = new Random();
+            this.TextBoxOffenceA.Text = RndGenerator.Next(1, 11).ToString();
+            this.TextBoxOffenceAP.Text = RndGenerator.Next(1, 7).ToString();
+            this.TextBoxOffenceBS.Text = RndGenerator.Next(1, 11).ToString();
+            this.TextBoxOffenceS.Text = RndGenerator.Next(1, 11).ToString();
+
+            this.TextBoxDefArmorSave.Text = RndGenerator.Next(2, 7).ToString();
+            this.TextBoxDefCoverSave.Text = RndGenerator.Next(2, 7).ToString();
+            this.TextBoxDefInvulSave.Text = RndGenerator.Next(2, 7).ToString();
+            if (this.CheckBoxDefIsInfantry.IsChecked == true) this.TextBoxDefenceT.Text = RndGenerator.Next(1, 11).ToString();
+            else this.TextBoxDefenceT.Text = RndGenerator.Next(1, 15).ToString();
+
+            if (RndGenerator.Next(1, 3) == 1) this.CheckBoxDefArmorSave.IsChecked = false;
+            else this.CheckBoxDefArmorSave.IsChecked = true;
+
+            if (RndGenerator.Next(1, 3) == 1) this.CheckBoxDefCoverSave.IsChecked = false;
+            else this.CheckBoxDefCoverSave.IsChecked = true;
+
+            if (RndGenerator.Next(1, 3) == 1) this.CheckBoxDefInvulSave.IsChecked = false;
+            else this.CheckBoxDefInvulSave.IsChecked = true;
+            return;
         }
     }
 }

@@ -10,35 +10,35 @@
         <!-- Images -->
         <Image HorizontalAlignment="Left" Margin="451,6,0,0" VerticalAlignment="Top" Width="100" Height="130" Source="Shield.png"/>
         <Image HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="158" Height="119" Source="Boltgun.png"/>
-        
+
         <!-- Labels of Offence -->
         <Label Content="A" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,152,0,0" Background="#FF4B4B4B" Width="30" Height="25" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center"/>
         <Label Content="S" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,192,0,0" Background="#FF4B4B4B" Width="30" Height="25" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center"/>
         <Label Content="BS" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,232,0,0" Background="#FF4B4B4B" Width="30" Height="25" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center"/>
         <Label Content="AP" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,272,0,0" Background="#FF4B4B4B" Width="30" Height="25" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center"/>
-        
+
         <!-- Text Boxes of Offence -->
         <TextBox x:Name="TextBoxOffenceA"  Margin="76,152,0,0" TextWrapping="NoWrap" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxOffenceS" HorizontalAlignment="Left" Height="25" Margin="76,192,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxOffenceBS" HorizontalAlignment="Left" Height="25" Margin="76,232,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxOffenceAP" HorizontalAlignment="Left" Height="25" Margin="76,272,0,0" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center"/>
-        
+
         <!--Check Boxes of Offence-->
         <CheckBox x:Name="CheckBoxOffIsInfantry" Content="Атакующий - пехота?" HorizontalAlignment="Left" Margin="21,324,0,0" VerticalAlignment="Top" IsChecked="True" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13"/>
-                
+
         <!-- Check Boxes of Defence-->
         <CheckBox x:Name="CheckBoxDefArmorSave" Content="Спасбросок за броню" HorizontalAlignment="Left" Margin="426,151,0,0" VerticalAlignment="Top" Style="{DynamicResource W40kCheckBoxStyle}" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Checked="CheckBoxDefArmorSave_Checked" Unchecked="CheckBoxDefArmorSave_Unchecked" IsChecked="True"/>
         <CheckBox x:Name="CheckBoxDefInvulSave" Content="Непробиваемый Спасбросок" HorizontalAlignment="Left" IsChecked="True" Margin="403,197,0,0" VerticalAlignment="Top" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13" Checked="CheckBoxDefInvulSave_Checked" Unchecked="CheckBoxDefInvulSave_Unchecked"/>
         <CheckBox x:Name="CheckBoxDefCoverSave" Content="Спасбросок за укрытие" HorizontalAlignment="Left" IsChecked="True" Margin="426,245,0,0" VerticalAlignment="Top" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13" Checked="CheckBoxDefCoverSave_Checked" Unchecked="CheckBoxDefCoverSave_Unchecked"/>
         <CheckBox x:Name="CheckBoxDefIsInfantry" Content="Цель - пехота?" HorizontalAlignment="Left" Margin="435,336,0,0" VerticalAlignment="Top" IsChecked="True" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13" Checked="CheckBoxDefIsInfantry_Checked" Unchecked="CheckBoxDefIsInfantry_Unchecked"/>
         <CheckBox x:Name="CheckBoxDefIsOpenVeh" Content="Техника открыта?" HorizontalAlignment="Left" Margin="435,357,0,0" VerticalAlignment="Top" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13"/>
-        
+
         <!-- Text Boxes of Defence-->
         <TextBox x:Name="TextBoxDefArmorSave" Margin="476,167,0,0" TextWrapping="NoWrap" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxDefInvulSave" Margin="476,213,0,0" TextWrapping="NoWrap" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxDefCoverSave" Margin="476,261,0,0" TextWrapping="NoWrap" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="TextBoxDefenceT" Margin="476,302,0,0" TextWrapping="NoWrap" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" HorizontalContentAlignment="Center"/>
-        
+
         <!-- Labels of Defence -->
         <Label x:Name="LabelDefenceT" Content="T" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,302,120,0" Background="#FF4B4B4B" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center" MinWidth="30" MinHeight="25"/>
 
@@ -59,7 +59,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        
+
         <!-- Footer with name of program -->
         <Label Content="Battle Counter 2.0" HorizontalAlignment="Left" Margin="203,363,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Arial" FontWeight="Bold" ClipToBounds="True">
             <Label.Effect>
@@ -81,5 +81,10 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
+        <Button Name="ButtonFillFieldsWithRnd" HorizontalAlignment="Left" Height="41" Margin="21,345,0,0" VerticalAlignment="Top" Width="147" Click="ButtonFillFieldsWithRnd_Click">
+            <Button.Content>
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center">Сгенерировать случайные значения</TextBlock>
+            </Button.Content>
+        </Button>
     </Grid>
 </Window>

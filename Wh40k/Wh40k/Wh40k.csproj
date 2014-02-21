@@ -37,7 +37,6 @@
     <Reference Include="CombatLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\CombatLib\CombatLib\bin\Release\CombatLib.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />

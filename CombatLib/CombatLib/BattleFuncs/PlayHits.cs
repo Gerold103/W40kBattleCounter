@@ -18,16 +18,26 @@ namespace CombatLib.BattleFuncs
 
             CombatLib.Addition.AdditionalFuncs.RangedHitConditions(AttackingPlayer, ref Hits); //вычисляем условия попадания, включая добавочное, на основе данных из класса нападающего
 
-            int i, j; //j - счетчик бросков на попадание без учета перебрасываний, i - счетчик всех бросков на попадания и нулей, обозначающих переброс
+            int i, j, actualSizeOfArr = AttackingPlayer.A; //j - счетчик бросков на попадание без учета перебрасываний, i - счетчик всех бросков на попадания и нулей, обозначающих переброс
             Hits.HitCubes = new int[AttackingPlayer.A]; //выделение памяти под массив кубов на попадание. Количество элементов = количеству атак
 
             for (j = 0, i = 0; j < AttackingPlayer.A; j++) //цикл бросков кубов
             {
+                if (i >= actualSizeOfArr)
+                {
+                    actualSizeOfArr = i + 1;
+                    Array.Resize(ref Hits.HitCubes, actualSizeOfArr);
+                }
                 Hits.HitCubes[i] = RndGenerator.Next(1, 7);
                 if (Hits.HitCubes[i] >= Hits.Condition) Hits.Hits++;
                 else if (Hits.AdditionalCondition < 7)
                 {
                     i++;
+                    if (i >= actualSizeOfArr)
+                    {
+                        actualSizeOfArr = i + 2;
+                        Array.Resize(ref Hits.HitCubes, actualSizeOfArr);
+                    }
                     Hits.HitCubes[i] = 0; //отмечаем, что куб был переброшен, добавляя 0 и изменяя счетчик бросков i
                     i++;
                     Hits.HitCubes[i] = RndGenerator.Next(1, 7);
@@ -47,16 +57,26 @@ namespace CombatLib.BattleFuncs
 
             CombatLib.Addition.AdditionalFuncs.MeleeHitCondition(AttackingPlayer, DefendingPlayer, ref Hits); ////вычисляем условие попадания
 
-            int i, j; //j - счетчик бросков на попадание без учета перебрасываний, i - счетчик всех бросков на попадания и нулей, обозначающих переброс
+            int i, j, actualSizeOfArr = AttackingPlayer.A; //j - счетчик бросков на попадание без учета перебрасываний, i - счетчик всех бросков на попадания и нулей, обозначающих переброс
             Hits.HitCubes = new int[AttackingPlayer.A]; //выделение памяти под массив кубов на попадание. Количество элементов = количеству атак
 
             for (i = 0, j = 0; j < AttackingPlayer.A; j++) //цикл бросков кубов
             {
+                if (i >= actualSizeOfArr)
+                {
+                    actualSizeOfArr = i + 1;
+                    Array.Resize(ref Hits.HitCubes, actualSizeOfArr);
+                }
                 Hits.HitCubes[i] = RndGenerator.Next(1, 7);
                 if (Hits.HitCubes[i] >= Hits.Condition) Hits.Hits++;
                 else if (Hits.AdditionalCondition < 7)
                 {
                     i++;
+                    if (i >= actualSizeOfArr)
+                    {
+                        actualSizeOfArr = i + 2;
+                        Array.Resize(ref Hits.HitCubes, actualSizeOfArr);
+                    }
                     Hits.HitCubes[i] = 0; //отмечаем, что куб был переброшен, добавляя 0 и изменяя счетчик бросков i
                     i++;
                     Hits.HitCubes[i] = RndGenerator.Next(1, 7);
