@@ -337,7 +337,46 @@ namespace Wh40k
         //П Е Х О Т А   П Р О Т И В   Т Е Х Н И К И
         private void PlayInfantryVSVehicle(CombatLib.Offence.Ranged.ORInfantry AttackingPlayer, CombatLib.Defence.Ranged.DRVehicle DefendingPlayer)
         {
+            //отладочные выводы
             MessageBox.Show("InfantryVSVehicle");
+            MessageBox.Show(AttackingPlayer.ToString(), "AttackingPlayer");
+            MessageBox.Show(DefendingPlayer.ToString(), "DefendingPlayer");
+
+            //инициализация объектов
+            Random RndGenerator = new Random();
+            CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits = new CombatLib.Phases.PhaseHits.PhaseHitsVehicle();
+            CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = new CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle();
+            CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = new CombatLib.Phases.PhaseSaves.PhaseSavesVehicle();
+
+            //указатели на родителей классов
+            CombatLib.Offence.Ranged.OffenceRanged baseORInfantry = AttackingPlayer;
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsVehicle = Hits;
+
+            ////ПОДГОТОВЛЕНИЯ ПЕРЕД ИГРОЙ
+            //вычисление наилучшего спасброска
+            Saves.Condition = DefendingPlayer.CoverSave;
+
+            //И Г Р А
+
+            //попадания
+            CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsVehicle, ref RndGenerator);
+            if (Hits.Hits == 0)
+            {
+                this.DisplayResult(Hits);
+                return;
+            }
+
+            //раны
+            CombatLib.BattleFuncs.PlayWounds.RangedPlay(baseORInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            if (Wounds.RowWounds == 0)
+            {
+                this.DisplayResult(Hits, Wounds);
+                return;
+            }
+
+            //спасы
+            CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            this.DisplayResult(Hits, Wounds, Saves);
         }
 
         //П Е Х О Т А   П Р О Т И В   П Е Х О Т Ы
@@ -345,8 +384,8 @@ namespace Wh40k
         {
             //отладочные выводы
             MessageBox.Show("InfantryVSInfantry");
-            MessageBox.Show(AttackingPlayer.ToString());
-            MessageBox.Show(DefendingPlayer.ToString());
+            MessageBox.Show(AttackingPlayer.ToString(), "AttackingPlayer");
+            MessageBox.Show(DefendingPlayer.ToString(), "DefendingPlayer");
 
             //инициализация объектов
             Random RndGenerator = new Random(); //генератор рандомных числе - один на все время работы программы со случайной затравкой
@@ -358,8 +397,7 @@ namespace Wh40k
             CombatLib.Offence.Ranged.OffenceRanged baseORInfantry = AttackingPlayer; //родитель атакующего игрока
             CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsInfantry = Hits; //родитель фазы попаданий
 
-            //подготовительные действия перед игрой
-
+            //ПОДГОТОВЛЕНИЯ ПЕРЕД ИГРОЙ
             //вычисление наилучшего спасброска
             if ((AttackingPlayer.AP <= DefendingPlayer.ArmorSave) || (DefendingPlayer.ArmorSave >= DefendingPlayer.CoverSave) && (DefendingPlayer.ArmorSave >= DefendingPlayer.InvulSave))
             {
@@ -401,13 +439,21 @@ namespace Wh40k
             //спасы
             CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
             this.DisplayResult(Hits, Wounds, Saves);
-            return;
         }
 
 //В Ы В О Д   Р Е З У Л Ь Т А Т А
 
         //против пехоты
         void DisplayResult(CombatLib.Phases.PhaseHits.PhaseHitsInfantry Hits, CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry Wounds = null, CombatLib.Phases.PhaseSaves.PhaseSavesInfantry Saves = null)
+        {
+            MessageBox.Show(Hits.ToString(), "Попадания", MessageBoxButton.OK);
+            if (Wounds != null) MessageBox.Show(Wounds.ToString(), "Раны", MessageBoxButton.OK);
+            if (Saves != null) MessageBox.Show(Saves.ToString(), "Спасброски", MessageBoxButton.OK);
+            return;
+        }
+
+        //против техники
+        void DisplayResult(CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits, CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = null, CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = null)
         {
             MessageBox.Show(Hits.ToString(), "Попадания", MessageBoxButton.OK);
             if (Wounds != null) MessageBox.Show(Wounds.ToString(), "Раны", MessageBoxButton.OK);

@@ -111,7 +111,10 @@ namespace CombatLib.Phases.PhaseWounds
             else Result += "Punched Wounds are Undefined (or defined but = 0)\n";
 
             if (this.RowSlidingWounds != 0) Result += "Row Sliding Wounds = " + this.RowSlidingWounds.ToString() + "\n";
-            else Result += "Sliding Wounds are Undefine (or defined but = 0)\n";
+            else Result += "Row Sliding Wounds are Undefined (or defined but = 0)\n";
+
+            if (this.SlidingWounds != 0) Result += "Sliding Wounds = " + this.SlidingWounds.ToString() + "\n";
+            else Result += "Sliding Wounds are Undefined (or defined but = 0)\n";
 
             if (this.RowWounds != 0) Result += "Summary Row Wounds = " + this.RowWounds.ToString() + "\n";
             else Result += "Sunnary Row Wounds are Undefined (or defined but = 0)\n";
