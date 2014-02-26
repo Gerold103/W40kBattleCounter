@@ -325,13 +325,139 @@ namespace Wh40k
         //Т Е Х Н И К А   П Р О Т И В   Т Е Х Н И К И
         private void PlayVehicleVSVehicle(CombatLib.Offence.Ranged.ORVehicle AttackingPlayer, CombatLib.Defence.Ranged.DRVehicle DefendingPlayer)
         {
+            //отладочные выводы
             MessageBox.Show("VehicleVSVehicle");
+            MessageBox.Show(AttackingPlayer.ToString(), "AttackingPlayer");
+            MessageBox.Show(DefendingPlayer.ToString(), "DefendingPlayer");
+
+            //инициализация объектов
+            Random RndGenerator = new Random();
+            CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits = new CombatLib.Phases.PhaseHits.PhaseHitsVehicle();
+            CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = new CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle();
+            CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = new CombatLib.Phases.PhaseSaves.PhaseSavesVehicle();
+
+            //указатели на родителей классов
+            CombatLib.Offence.Ranged.OffenceRanged baseORInfantry = AttackingPlayer;
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsVehicle = Hits;
+
+            ////ПОДГОТОВЛЕНИЯ ПЕРЕД ИГРОЙ
+            //вычисление наилучшего спасброска
+            Saves.Condition = DefendingPlayer.CoverSave;
+
+            //И Г Р А
+
+            //попадания
+            try
+            {
+                CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsVehicle, ref RndGenerator);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Hits.Hits == 0)
+            {
+                this.DisplayResult(Hits);
+                return;
+            }
+
+            //раны
+            try
+            {
+                CombatLib.BattleFuncs.PlayWounds.RangedPlay(baseORInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Wounds.RowWounds == 0)
+            {
+                this.DisplayResult(Hits, Wounds);
+                return;
+            }
+
+            //спасы
+            try
+            {
+                CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            this.DisplayResult(Hits, Wounds, Saves);
         }
 
         //Т Е Х Н И К А   П Р О Т И В   П Е Х О Т Ы
         private void PlayVehicleVSInfantry(CombatLib.Offence.Ranged.ORVehicle AttackingPlayer, CombatLib.Defence.Ranged.DRInfantry DefendingPlayer)
         {
+            //отладочные выводы
             MessageBox.Show("VehicleVSInfantry");
+            MessageBox.Show(AttackingPlayer.ToString(), "AttackingPlayer");
+            MessageBox.Show(DefendingPlayer.ToString(), "DefendingPlayer");
+
+            //инициализация объектов
+            Random RndGenerator = new Random();
+            CombatLib.Phases.PhaseHits.PhaseHitsInfantry Hits = new CombatLib.Phases.PhaseHits.PhaseHitsInfantry();
+            CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry Wounds = new CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry();
+            CombatLib.Phases.PhaseSaves.PhaseSavesInfantry Saves = new CombatLib.Phases.PhaseSaves.PhaseSavesInfantry();
+
+            //указатели на родителей классов
+            CombatLib.Offence.Ranged.OffenceRanged baseORInfantry = AttackingPlayer;
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsInfantry = Hits;
+
+            ////ПОДГОТОВЛЕНИЯ ПЕРЕД ИГРОЙ
+            //вычисление наилучшего спасброска
+            Saves.Condition = CombatLib.Addition.AdditionalFuncs.BestSaveThrow(AttackingPlayer.AP, DefendingPlayer.CoverSave, DefendingPlayer.ArmorSave, DefendingPlayer.InvulSave);
+
+            //И Г Р А
+
+            //попадания
+            try
+            {
+                CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsInfantry, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Hits.Hits == 0)
+            {
+                this.DisplayResult(Hits);
+                return;
+            }
+
+            //раны
+            try
+            {
+                CombatLib.BattleFuncs.PlayWounds.RangedPlay(baseORInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Wounds.RowWounds == 0)
+            {
+                this.DisplayResult(Hits, Wounds);
+                return;
+            }
+
+            //спасы
+            try
+            {
+                CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            this.DisplayResult(Hits, Wounds, Saves);
         }
 
         //П Е Х О Т А   П Р О Т И В   Т Е Х Н И К И
@@ -359,7 +485,15 @@ namespace Wh40k
             //И Г Р А
 
             //попадания
-            CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsVehicle, ref RndGenerator);
+            try
+            {
+                CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsVehicle, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (Hits.Hits == 0)
             {
                 this.DisplayResult(Hits);
@@ -367,7 +501,15 @@ namespace Wh40k
             }
 
             //раны
-            CombatLib.BattleFuncs.PlayWounds.RangedPlay(baseORInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            try
+            {
+                CombatLib.BattleFuncs.PlayWounds.RangedPlay(baseORInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (Wounds.RowWounds == 0)
             {
                 this.DisplayResult(Hits, Wounds);
@@ -375,7 +517,15 @@ namespace Wh40k
             }
 
             //спасы
-            CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            try
+            {
+                CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             this.DisplayResult(Hits, Wounds, Saves);
         }
 
@@ -399,29 +549,20 @@ namespace Wh40k
 
             //ПОДГОТОВЛЕНИЯ ПЕРЕД ИГРОЙ
             //вычисление наилучшего спасброска
-            if ((AttackingPlayer.AP <= DefendingPlayer.ArmorSave) || (DefendingPlayer.ArmorSave >= DefendingPlayer.CoverSave) && (DefendingPlayer.ArmorSave >= DefendingPlayer.InvulSave))
-            {
-                if (DefendingPlayer.CoverSave >= DefendingPlayer.InvulSave) Saves.Condition = DefendingPlayer.InvulSave;
-                else Saves.Condition = DefendingPlayer.CoverSave;
-            }
-            else
-            {
-                if (DefendingPlayer.InvulSave >= DefendingPlayer.CoverSave)
-                {
-                    if (DefendingPlayer.ArmorSave <= DefendingPlayer.CoverSave) Saves.Condition = DefendingPlayer.ArmorSave;
-                    else Saves.Condition = DefendingPlayer.CoverSave;
-                }
-                else
-                {
-                    if (DefendingPlayer.ArmorSave <= DefendingPlayer.InvulSave) Saves.Condition = DefendingPlayer.ArmorSave;
-                    else Saves.Condition = DefendingPlayer.InvulSave;
-                }
-            }
+            CombatLib.Addition.AdditionalFuncs.BestSaveThrow(AttackingPlayer.AP, DefendingPlayer.CoverSave, DefendingPlayer.ArmorSave, DefendingPlayer.InvulSave);
 
             //И Г Р А
 
             //попадания
-            CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsInfantry, ref RndGenerator);
+            try
+            {
+                CombatLib.BattleFuncs.PlayHits.PlayRanged(baseORInfantry, ref basePhaseHitsInfantry, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (Hits.Hits == 0)
             {
                 this.DisplayResult(Hits);
@@ -429,7 +570,15 @@ namespace Wh40k
             }
 
             //раны
-            CombatLib.BattleFuncs.PlayWounds.RangedPlay(baseORInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            try
+            {
+                CombatLib.BattleFuncs.PlayWounds.RangedPlay(baseORInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (Wounds.RowWounds == 0)
             {
                 this.DisplayResult(Hits, Wounds);
@@ -437,7 +586,15 @@ namespace Wh40k
             }
 
             //спасы
-            CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            try
+            {
+                CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             this.DisplayResult(Hits, Wounds, Saves);
         }
 

@@ -83,6 +83,30 @@ namespace CombatLib.Addition
             return Wounds.Condition;
         }
 
+        public static int BestSaveThrow(int ap, int cover, int armor = 7, int invul = 7)
+        {
+            int res;
+            if ((ap <= armor) || (armor >= cover) && (armor >= invul))
+            {
+                if (cover >= invul) res = invul;
+                else res = cover;
+            }
+            else
+            {
+                if (invul >= cover)
+                {
+                    if (armor <= cover) res = armor;
+                    else res = cover;
+                }
+                else
+                {
+                    if (armor <= invul) res = armor;
+                    else res = invul;
+                }
+            }
+            return res;
+        }
+
         public static int MeleeHitCondition(CombatLib.Offence.Melee.OffenceMelee AttackingPlayer, CombatLib.Defence.Melee.DefenceMelee DefendingPlayer,
             ref CombatLib.Phases.PhaseHits.PhaseHits Hits) //вычисляем табличное значение условия попадания в ближнем бою
         {
