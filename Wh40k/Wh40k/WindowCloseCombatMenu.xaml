@@ -29,7 +29,8 @@
         <CheckBox x:Name="CheckBoxOffIsInfantry" Content="Атакующий - пехота?" HorizontalAlignment="Left" Margin="29,315,0,0" VerticalAlignment="Top" IsChecked="True" Style="{DynamicResource W40kCheckBoxStyle}" Foreground="White" Height="16" FontFamily="Microsoft Sans Serif" FontSize="13"/>
 
         <!-- Buttons -->
-        <Button x:Name="ButtonPlayCombat" Content="Сыграть бой" Margin="225,257,0,0" Width="140" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif" Panel.ZIndex="-2" BorderThickness="0" IsDefault="True">
+        <Button x:Name="ButtonPlayCombat" Content="Сыграть бой" Margin="225,257,0,0" Width="140" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif"
+                Panel.ZIndex="-2" BorderThickness="0" IsDefault="True" Click="ButtonPlayCombat_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFA5B68E" Offset="0"/>
@@ -90,5 +91,11 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
+        <!--Кнопка генерации случайных значений-->
+        <Button Name="ButtonFillFieldsWithRnd" HorizontalAlignment="Left" Height="41" Margin="21,345,0,0" VerticalAlignment="Top" Width="147" Click="ButtonFillFieldsWithRnd_Click">
+            <Button.Content>
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center">Сгенерировать случайные значения</TextBlock>
+            </Button.Content>
+        </Button>
     </Grid>
 </Window>

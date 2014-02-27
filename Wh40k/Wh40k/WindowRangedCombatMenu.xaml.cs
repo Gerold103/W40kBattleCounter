@@ -186,6 +186,7 @@ namespace Wh40k
                     CombatLib.Defence.Ranged.DRVehicle DefendingPlayer = new CombatLib.Defence.Ranged.DRVehicle();
                     try
                     {
+                        errLoc = "CoverSave";
                         DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
@@ -290,6 +291,7 @@ namespace Wh40k
                     CombatLib.Defence.Ranged.DRVehicle DefendingPlayer = new CombatLib.Defence.Ranged.DRVehicle();
                     try
                     {
+                        errLoc = "CoverSave";
                         DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
