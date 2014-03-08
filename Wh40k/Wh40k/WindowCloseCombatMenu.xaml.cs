@@ -142,7 +142,7 @@ namespace Wh40k
                         errLoc = "InvulSave";
                         DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
                         errLoc = "WS";
-                        DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS);
+                        DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS.Text);
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
                     }
                     catch (FormatException)
@@ -174,7 +174,7 @@ namespace Wh40k
                     try
                     {
                         errLoc = "WS";
-                        DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS);
+                        DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS.Text);
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
                     }
@@ -246,7 +246,7 @@ namespace Wh40k
                         errLoc = "InvulSave";
                         DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
                         errLoc = "WS";
-                        DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS);
+                        DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS.Text);
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
                     }
@@ -279,7 +279,7 @@ namespace Wh40k
                     try
                     {
                         errLoc = "WS";
-                        DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS);
+                        DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS.Text);
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
                     }
