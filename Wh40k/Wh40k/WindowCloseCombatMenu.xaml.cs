@@ -318,6 +318,48 @@ namespace Wh40k
             MessageBox.Show("VehicleVSVehicle");
             MessageBox.Show(AttackingPlayer.ToString(), "AttackingPlayer");
             MessageBox.Show(DefendingPlayer.ToString(), "DefendingPlayer");
+
+            //инициализация объектов
+            Random RndGenerator = new Random();
+            CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits = new CombatLib.Phases.PhaseHits.PhaseHitsVehicle();
+            CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = new CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle();
+            CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = new CombatLib.Phases.PhaseSaves.PhaseSavesVehicle();
+
+            //указатели на родителей классов
+            CombatLib.Offence.Melee.OffenceMelee baseOMVehicle = AttackingPlayer;
+            CombatLib.Defence.Melee.DefenceMelee baseDMVehicle = DefendingPlayer;
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsVehicle = Hits;
+
+            //И Г Р А
+
+            //попадания
+
+            try
+            {
+                CombatLib.BattleFuncs.PlayHits.PlayMelee(baseOMVehicle, baseDMVehicle, ref basePhaseHitsVehicle, ref RndGenerator);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Hits.Hits == 0)
+            {
+                this.DisplayResult(Hits);
+                return;
+            }
+
+            //раны
+            try
+            {
+                CombatLib.BattleFuncs.PlayWounds.MeleePlay(baseOMVehicle, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            this.DisplayResult(Hits, Wounds);
         }
 
         //Т Е Х Н И К А   П Р О Т И В   П Е Х О Т Ы
@@ -327,6 +369,67 @@ namespace Wh40k
             MessageBox.Show("VehicleVSInfantry");
             MessageBox.Show(AttackingPlayer.ToString(), "AttackingPlayer");
             MessageBox.Show(DefendingPlayer.ToString(), "DefendingPlayer");
+
+            //инициализация объектов
+            Random RndGenerator = new Random();
+            CombatLib.Phases.PhaseHits.PhaseHitsInfantry Hits = new CombatLib.Phases.PhaseHits.PhaseHitsInfantry();
+            CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry Wounds = new CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry();
+            CombatLib.Phases.PhaseSaves.PhaseSavesInfantry Saves = new CombatLib.Phases.PhaseSaves.PhaseSavesInfantry();
+
+            //указатели на родителей классов
+            CombatLib.Offence.Melee.OffenceMelee baseOMVehicle = AttackingPlayer;
+            CombatLib.Defence.Melee.DefenceMelee baseDMInfantry = DefendingPlayer;
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsInfantry = Hits;
+
+            ////ПОДГОТОВЛЕНИЯ ПЕРЕД ИГРОЙ
+            //вычисление наилучшего спасброска
+            Saves.Condition = CombatLib.Addition.AdditionalFuncs.BestSaveThrow(AttackingPlayer.AP, 7, DefendingPlayer.ArmorSave, DefendingPlayer.InvulSave);
+
+            //И Г Р А
+
+            //попадания
+            try
+            {
+                CombatLib.BattleFuncs.PlayHits.PlayMelee(baseOMVehicle, DefendingPlayer, ref basePhaseHitsInfantry, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Hits.Hits == 0)
+            {
+                this.DisplayResult(Hits);
+                return;
+            }
+
+            //раны
+            try
+            {
+                CombatLib.BattleFuncs.PlayWounds.MeleePlay(baseOMVehicle, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Wounds.RowWounds == 0)
+            {
+                this.DisplayResult(Hits, Wounds);
+                return;
+            }
+
+            //спасы
+            try
+            {
+                CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            this.DisplayResult(Hits, Wounds, Saves);
         }
 
         //П Е Х О Т А   П Р О Т И В   Т Е Х Н И К И
@@ -336,6 +439,64 @@ namespace Wh40k
             MessageBox.Show("InfantryVSVehicle");
             MessageBox.Show(AttackingPlayer.ToString(), "AttackingPlayer");
             MessageBox.Show(DefendingPlayer.ToString(), "DefendingPlayer");
+
+            //инициализация объектов
+            Random RndGenerator = new Random();
+            CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits = new CombatLib.Phases.PhaseHits.PhaseHitsVehicle();
+            CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = new CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle();
+            CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = new CombatLib.Phases.PhaseSaves.PhaseSavesVehicle();
+
+            //указатели на родителей классов
+            CombatLib.Offence.Melee.OffenceMelee baseOMInfantry = AttackingPlayer;
+            CombatLib.Defence.Melee.DefenceMelee baseDMVehicle = DefendingPlayer;
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsVehicle = Hits;
+
+            //И Г Р А
+
+            //попадания
+
+            try
+            {
+                CombatLib.BattleFuncs.PlayHits.PlayMelee(baseOMInfantry, baseDMVehicle, ref basePhaseHitsVehicle, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Hits.Hits == 0)
+            {
+                this.DisplayResult(Hits);
+                return;
+            }
+
+            //раны
+            try
+            {
+                CombatLib.BattleFuncs.PlayWounds.MeleePlay(baseOMInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Wounds.RowWounds == 0)
+            {
+                this.DisplayResult(Hits, Wounds);
+                return;
+            }
+
+            //спасы
+            try
+            {
+                CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            this.DisplayResult(Hits, Wounds, Saves);
         }
 
         //П Е Х О Т А   П Р О Т И В   П Е Х О Т Ы
@@ -345,6 +506,67 @@ namespace Wh40k
             MessageBox.Show("InfantryVSInfantry");
             MessageBox.Show(AttackingPlayer.ToString(), "AttackingPlayer");
             MessageBox.Show(DefendingPlayer.ToString(), "DefendingPlayer");
+
+            //инициализация объектов
+            Random RndGenerator = new Random();
+            CombatLib.Phases.PhaseHits.PhaseHitsInfantry Hits = new CombatLib.Phases.PhaseHits.PhaseHitsInfantry();
+            CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry Wounds = new CombatLib.Phases.PhaseWounds.PhaseWoundsInfantry();
+            CombatLib.Phases.PhaseSaves.PhaseSavesInfantry Saves = new CombatLib.Phases.PhaseSaves.PhaseSavesInfantry();
+
+            //указатели на родителей классов
+            CombatLib.Offence.Melee.OffenceMelee baseOMInfantry = AttackingPlayer;
+            CombatLib.Defence.Melee.DefenceMelee baseDMInfantry = DefendingPlayer;
+            CombatLib.Phases.PhaseHits.PhaseHits basePhaseHitsInfantry = Hits;
+
+            ////ПОДГОТОВЛЕНИЯ ПЕРЕД ИГРОЙ
+            //вычисление наилучшего спасброска
+            Saves.Condition = CombatLib.Addition.AdditionalFuncs.BestSaveThrow(AttackingPlayer.AP, 7, DefendingPlayer.ArmorSave, DefendingPlayer.InvulSave);
+
+            //И Г Р А
+
+            //попадания
+            try
+            {
+                CombatLib.BattleFuncs.PlayHits.PlayMelee(baseOMInfantry, DefendingPlayer, ref basePhaseHitsInfantry, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Hits.Hits == 0)
+            {
+                this.DisplayResult(Hits);
+                return;
+            }
+
+            //раны
+            try
+            {
+                CombatLib.BattleFuncs.PlayWounds.MeleePlay(baseOMInfantry, DefendingPlayer, Hits, ref Wounds, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (Wounds.RowWounds == 0)
+            {
+                this.DisplayResult(Hits, Wounds);
+                return;
+            }
+
+            //спасы
+            try
+            {
+                CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            this.DisplayResult(Hits, Wounds, Saves);
         }
 
 //В Ы В О Д   Р Е З У Л Ь Т А Т А
