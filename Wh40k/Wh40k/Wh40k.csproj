@@ -61,6 +61,9 @@
     <Compile Include="WindowRangedCombatMenu.xaml.cs">
       <DependentUpon>WindowRangedCombatMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowResultInfantry.xaml.cs">
+      <DependentUpon>WindowResultInfantry.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,6 +81,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowRangedCombatMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowResultInfantry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

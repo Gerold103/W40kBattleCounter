@@ -52,5 +52,17 @@ namespace Wh40k
         {
             this.DragMove();
         }
+
+
+
+
+
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            WindowResultInfantry testwin = new WindowResultInfantry();
+            testwin.Show();
+        }
     }
 }
