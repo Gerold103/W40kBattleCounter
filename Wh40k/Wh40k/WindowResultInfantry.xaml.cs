@@ -38,5 +38,10 @@ namespace Wh40k
         {
             this.DragMove();
         }
+
+        private void ButtonCloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
