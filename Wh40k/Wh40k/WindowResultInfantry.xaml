@@ -42,7 +42,7 @@
                     <Label Grid.Column="0" Content="Попадания: " FontWeight="Bold" Name="LabelHitsInfo"/>
                     <Label Grid.Column="1" Content="###" Name="LabelHits"/>
                     <Label Grid.Column="2" Content="Раны: " FontWeight="Bold" Name="LabelWoundInfo"/>
-                    <Label Grid.Column="3" Content="###"/>
+                    <Label Grid.Column="3" Content="###" Name="LabelWounds"/>
                 </Grid>
                 <!--Grid for saves-->
                 <Grid Grid.Row="1" Height="Auto">
@@ -66,10 +66,14 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/> <!--Column for info about field-->
                             <ColumnDefinition Width="Auto"/> <!--Column for hit condition-->
+                            <ColumnDefinition Width="Auto"/> <!--Column for info about additional condition-->
+                            <ColumnDefinition Width="Auto"/> <!--Column for additional condition-->
                         </Grid.ColumnDefinitions>
                         <!--Labels of grid for hit condition-->
                         <Label Content="Условие попадания:" Name="LabelHitConditionInfo" FontWeight="Bold" Foreground="White" Grid.Column="0"/>
                         <Label Name="LabelHitCondition" Content="###" Grid.Column="1"/>
+                        <Label Grid.Column="2" Content="Дополнительное: " FontWeight="Bold" Foreground="White" FontSize="10" Name="LabelAddHitCondInfo"/>
+                        <Label Grid.Column="3" Content="###" FontSize="10" Name="LabelAddHitCondition"/>
                     </Grid>
                     <!--Grid for hit cubes-->
                     <Grid Name="GridHitCubes" Grid.Row="1" Height="Auto" MinHeight="40">
@@ -146,7 +150,7 @@
                             <RowDefinition Height="Auto"/> <!--Row for save cubes-->
                         </Grid.RowDefinitions>
                         <!--Labels if grid for save cubes-->
-                        <Label Name="LabelSaveCubesInfo" Grid.Row="0" Content="Кубы на ранения:" FontWeight="Bold" Foreground="White"/>
+                        <Label Name="LabelSaveCubesInfo" Grid.Row="0" Content="Кубы на спасброски:" FontWeight="Bold" Foreground="White"/>
                         <Label Name="LabelSaveCubes" Grid.Row="1">
                             <TextBlock TextWrapping="WrapWithOverflow">
                                 ####
