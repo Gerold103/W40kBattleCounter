@@ -61,7 +61,7 @@ namespace Wh40k
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            WindowResultInfantry testwin = new WindowResultInfantry();
+            WindowResultVehicle testwin = new WindowResultVehicle();
             testwin.Show();
         }
     }
