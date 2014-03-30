@@ -3,7 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Width="600" Height="400" ResizeMode="NoResize" Background="#FF7A7A7A" MouseDown="Window_MouseDown" BorderThickness="2" ShowActivated="False" WindowStyle="None">
     <Window.Resources>
-        <Style x:Key="ButtonStyle">
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="1"
+                            Padding="4,2" 
+                            BorderBrush="DarkGray" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                                <Setter Property="Control.Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFD34040"/>
+                                            <GradientStop Color="White" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Control.FontFamily" Value="Microsoft Sans Serif"></Setter>
             <Setter Property="Control.Foreground" Value="#FF484848"></Setter>
             <Setter Property="Panel.ZIndex" Value="-2"></Setter>
@@ -17,12 +45,6 @@
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="Control.IsFocused" Value="true">
-                    <Setter Property="Control.Background" Value="Red" />
-                    <Setter Property="Control.BorderThickness" Value="1" />
-                </Trigger>
-            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
