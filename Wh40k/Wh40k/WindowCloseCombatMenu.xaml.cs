@@ -364,8 +364,13 @@ namespace Wh40k
                 MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            //спасов нет, поэтому все "сырые" раны станут окончательными
+            Wounds.PunchedWounds = Wounds.RowPunchedWounds;
+            Wounds.SlidingWounds = Wounds.RowSlidingWounds;
+            Wounds.Wounds = Wounds.PunchedWounds + Wounds.SlidingWounds;
             
-            this.DisplayResult(Hits, Wounds);
+            this.DisplayResult(Hits, Wounds, AttackingPlayer.S);
         }
 
         //Т Е Х Н И К А   П Р О Т И В   П Е Х О Т Ы
@@ -485,23 +490,13 @@ namespace Wh40k
                 MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (Wounds.RowWounds == 0)
-            {
-                this.DisplayResult(Hits, Wounds);
-                return;
-            }
 
-            //спасы
-            try
-            {
-                CombatLib.BattleFuncs.PlaySaves.Play(ref Wounds, ref Saves, ref RndGenerator);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            this.DisplayResult(Hits, Wounds, Saves);
+            //спасов нет, поэтому все "сырые" раны станут окончательными
+            Wounds.PunchedWounds = Wounds.RowPunchedWounds;
+            Wounds.SlidingWounds = Wounds.RowSlidingWounds;
+            Wounds.Wounds = Wounds.PunchedWounds + Wounds.SlidingWounds;
+
+            this.DisplayResult(Hits, Wounds, AttackingPlayer.S);
         }
 
         //П Е Х О Т А   П Р О Т И В   П Е Х О Т Ы
@@ -679,7 +674,7 @@ namespace Wh40k
         }
 
         //против техники
-        void DisplayResult(CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits, CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = null, CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = null)
+        void DisplayResult(CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits, CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = null, int S = -1, CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = null)
         {
             /*MessageBox.Show(Hits.ToString(), "Попадания", MessageBoxButton.OK);
             if (Wounds != null) MessageBox.Show(Wounds.ToString(), "Раны", MessageBoxButton.OK);
@@ -699,6 +694,8 @@ namespace Wh40k
                 Result.LabelPunchedWounds.Visibility = System.Windows.Visibility.Hidden;
                 Result.LabelSlidingWoundsInfo.Visibility = System.Windows.Visibility.Hidden;
                 Result.LabelSlidingWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelStrengthInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelStrength.Visibility = System.Windows.Visibility.Hidden;
                 //saves
                 Result.LabelSaveInfo.Visibility = System.Windows.Visibility.Hidden;
                 Result.LabelSaves.Visibility = System.Windows.Visibility.Hidden;
@@ -725,13 +722,15 @@ namespace Wh40k
             }
 
             //Wounds
-            if ((Wounds == null) || (Wounds.Condition > 6))
+            if ((Wounds == null) || (Wounds.Condition > 14))
             {
                 //wounds
                 Result.LabelPunchedWoundsInfo.Visibility = System.Windows.Visibility.Hidden;
                 Result.LabelPunchedWounds.Visibility = System.Windows.Visibility.Hidden;
                 Result.LabelSlidingWoundsInfo.Visibility = System.Windows.Visibility.Hidden;
                 Result.LabelSlidingWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelStrengthInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelStrength.Visibility = System.Windows.Visibility.Hidden;
                 //saves
                 Result.LabelSaveInfo.Visibility = System.Windows.Visibility.Hidden;
                 Result.LabelSaves.Visibility = System.Windows.Visibility.Hidden;
@@ -746,7 +745,7 @@ namespace Wh40k
                 Result.LabelWoundsInfo.Content = "не попал";
                 return;
             }
-            else if (Wounds.Condition > 6)
+            else if (Wounds.Condition > 14)
             {
                 //wounds
                 Result.LabelWoundsInfo.Content = "нельзя ранить";
@@ -758,9 +757,21 @@ namespace Wh40k
                 Result.LabelSlidingWounds.Content = Wounds.SlidingWounds.ToString();
                 Result.LabelWoundCondition.Content = Wounds.Condition.ToString() + "+";
                 Result.LabelWoundCubes.Content = Wounds.WoundCubesStr;
+                Result.LabelStrength.Content = S.ToString();
             }
 
             //Saves
+
+            if ((Saves == null) && (Wounds.Wounds != 0))
+            {
+                //saves
+                Result.LabelSaveInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSaves.Visibility = System.Windows.Visibility.Hidden;
+                //groups
+                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
+                return;
+            }
+
             if ((Saves == null) || (Saves.Condition > 6))
             {
                 //groups

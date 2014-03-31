@@ -80,7 +80,7 @@ namespace CombatLib.Phases.PhaseWounds
         }
 
         public PhaseWoundsVehicle() //Конструктор по умолчанию
-            : base(7, 0, 0)
+            : base(15, 0, 0)
         {
             this.RowSlidingWounds = 0;
             this.RowPunchedWounds = 0;
