@@ -4,7 +4,8 @@
         Title="MainWindow" Width="600" Height="400" ResizeMode="NoResize" Background="#FF7A7A7A" MouseDown="Window_MouseDown" BorderThickness="2" ShowActivated="False" WindowStyle="None">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -16,19 +17,6 @@
                             Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="Black" />
-                                <Setter Property="Control.Background">
-                                    <Setter.Value>
-                                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                            <GradientStop Color="#FFD34040"/>
-                                            <GradientStop Color="White" Offset="1"/>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -46,8 +34,31 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Key="Focus">
+        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonDistantCombat">
+        		<EasingColorKeyFrame KeyTime="0" Value="#FFD47777"/>
+        		<EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FFDC2D2D"/>
+        	</ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Defocus">
+        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonDistantCombat">
+        		<SplineColorKeyFrame KeyTime="0" Value="#FFDC2D2D"/>
+        		<SplineColorKeyFrame KeyTime="0:0:0.1" Value="#FFD47777"/>
+        	</ColorAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
+	<Window.Triggers>
+		<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="ButtonDistantCombat">
+			<BeginStoryboard x:Name="Focus_BeginStoryboard" Storyboard="{StaticResource Focus}"/>
+		</EventTrigger>
+		<EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ButtonDistantCombat">
+			<BeginStoryboard x:Name="Defocus_BeginStoryboard" Storyboard="{StaticResource Defocus}"/>
+		</EventTrigger>
+	</Window.Triggers>
     <Grid>
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup"/>
+    	</VisualStateManager.VisualStateGroups>
         <Grid.Background>
             <ImageBrush ImageSource="Deathwatch.png">
                 <ImageBrush.RelativeTransform>
