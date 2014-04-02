@@ -127,28 +127,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Boltgun.png" />
-    <Resource Include="CloseCombatBackground.jpg" />
+    <Resource Include="ChaosMarine.png" />
+    <Resource Include="CloseCombatBackground2.jpg" />
+    <Resource Include="Deathwatch.png" />
     <Resource Include="Lose.png" />
+    <Resource Include="MainBackground.jpg" />
+    <Resource Include="MainBackground.png" />
     <Resource Include="Mid.png" />
     <Resource Include="Shield.png" />
     <Resource Include="Sword.png" />
     <Resource Include="Win.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MainBackground.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="CloseCombatBackground2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="ChaosMarine.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Deathwatch.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

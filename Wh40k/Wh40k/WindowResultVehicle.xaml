@@ -31,7 +31,7 @@
                 </LinearGradientBrush>
             </Grid.Background>
             <!--Image-->
-            <Image Grid.Row="0" Source="Lose.png" Stretch="Fill" Height="140"/>
+            <Image Grid.Row="0" Source="Lose.png" Stretch="Fill" Height="140" Name="ImageBattleResult"/>
             <!--Main Results-->
             <Grid Grid.Row="1" Height="Auto">
                 <Grid.RowDefinitions>
@@ -102,7 +102,7 @@
                         <!--Labels if grid for hit cubes-->
                         <Label Name="LabelHitCubesInfo" Grid.Row="0" Content="Кубы на попадание:" FontWeight="Bold" Foreground="White"/>
                         <Label Name="LabelHitCubes" Grid.Row="1" Width="280" HorizontalContentAlignment="Left">
-                            <TextBlock TextWrapping="WrapWithOverflow">
+                            <TextBlock TextWrapping="WrapWithOverflow" Name="TextBlockHitCubes">
                                 ####
                             </TextBlock>
                         </Label>
@@ -143,7 +143,7 @@
                         <!--Labels if grid for hit cubes-->
                         <Label Name="LabelWoundCubesInfo" Grid.Row="0" Content="Кубы на ранения:" FontWeight="Bold" Foreground="White"/>
                         <Label Name="LabelWoundCubes" Grid.Row="1" MaxWidth="300">
-                            <TextBlock TextWrapping="WrapWithOverflow">
+                            <TextBlock TextWrapping="WrapWithOverflow" Name="TextBlockWoundCubes">
                                 ####
                             </TextBlock>
                         </Label>
@@ -182,7 +182,7 @@
                         <!--Labels if grid for save cubes-->
                         <Label Name="LabelSaveCubesInfo" Grid.Row="0" Content="Кубы на спасброски:" FontWeight="Bold" Foreground="White"/>
                         <Label Name="LabelSaveCubes" Grid.Row="1" MaxWidth="300">
-                            <TextBlock TextWrapping="WrapWithOverflow">
+                            <TextBlock TextWrapping="WrapWithOverflow" Name="TextBlockSaveCubes">
                                 ####
                             </TextBlock>
                         </Label>

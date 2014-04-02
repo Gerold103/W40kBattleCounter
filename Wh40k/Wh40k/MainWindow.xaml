@@ -100,8 +100,5 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        
-        
-        <Button Content="Button" HorizontalAlignment="Left" Height="32" Margin="10,344,0,0" VerticalAlignment="Top" Width="96" Click="Button_Click"/>
     </Grid>
 </Window>

@@ -150,11 +150,20 @@ namespace Wh40k
                     try
                     {
                         errLoc = "ArmorSave";
-                        DefendingPlayer.ArmorSave = Convert.ToInt16(this.TextBoxDefArmorSave.Text);
+                        if (this.CheckBoxDefArmorSave.IsChecked == true)
+                        {
+                            DefendingPlayer.ArmorSave = Convert.ToInt16(this.TextBoxDefArmorSave.Text);
+                        }
                         errLoc = "InvulSave";
-                        DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
+                        if (this.CheckBoxDefInvulSave.IsChecked == true)
+                        {
+                            DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
+                        }
                         errLoc = "CoverSave";
-                        DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        if (this.CheckBoxDefCoverSave.IsChecked == true)
+                        {
+                            DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        }
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
                     }
@@ -187,7 +196,10 @@ namespace Wh40k
                     try
                     {
                         errLoc = "CoverSave";
-                        DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        if (this.CheckBoxDefCoverSave.IsChecked == true)
+                        {
+                            DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        }
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
                     }
@@ -255,11 +267,20 @@ namespace Wh40k
                     try
                     {
                         errLoc = "ArmorSave";
-                        DefendingPlayer.ArmorSave = Convert.ToInt16(this.TextBoxDefArmorSave.Text);
+                        if (this.CheckBoxDefArmorSave.IsChecked == true)
+                        {
+                            DefendingPlayer.ArmorSave = Convert.ToInt16(this.TextBoxDefArmorSave.Text);
+                        }
                         errLoc = "InvulSave";
-                        DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
+                        if (this.CheckBoxDefInvulSave.IsChecked == true)
+                        {
+                            DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
+                        }
                         errLoc = "CoverSave";
-                        DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        if (this.CheckBoxDefCoverSave.IsChecked == true)
+                        {
+                            DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        }
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
                     }
@@ -292,7 +313,10 @@ namespace Wh40k
                     try
                     {
                         errLoc = "CoverSave";
-                        DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        if (this.CheckBoxDefCoverSave.IsChecked == true)
+                        {
+                            DefendingPlayer.CoverSave = Convert.ToInt16(this.TextBoxDefCoverSave.Text);
+                        }
                         errLoc = this.LabelDefenceT.Content.ToString();
                         DefendingPlayer.T = Convert.ToInt16(this.TextBoxDefenceT.Text);
                     }
@@ -390,7 +414,7 @@ namespace Wh40k
                 MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            this.DisplayResult(Hits, Wounds, Saves);
+            this.DisplayResult(Hits, Wounds, AttackingPlayer.S, Saves);
         }
 
         //Т Е Х Н И К А   П Р О Т И В   П Е Х О Т Ы
@@ -528,7 +552,7 @@ namespace Wh40k
                 MessageBox.Show(e.Message, "Ошибка: " + e.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            this.DisplayResult(Hits, Wounds, Saves);
+            this.DisplayResult(Hits, Wounds, AttackingPlayer.S, Saves);
         }
 
         //П Е Х О Т А   П Р О Т И В   П Е Х О Т Ы
@@ -611,130 +635,120 @@ namespace Wh40k
             WindowResultInfantry Result = new WindowResultInfantry();
             Result.Show();
 
-            //Hits label
-            if (Hits.Condition <= 6)
-                if (Hits.Hits != 0)
-                    Result.LabelHits.Content = Hits.Hits.ToString();
-                else
-                    Result.LabelHits.Content = "нет";
+            if ((Wounds == null) || (Wounds.Wounds * 4 <= Hits.Hits))
+            {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Lose.png", UriKind.Relative));
+            }
+            else if (Wounds.Wounds * 3 <= Hits.Hits)
+            {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Mid.png", UriKind.Relative));
+            }
             else
             {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Win.png", UriKind.Relative));
+            }
+
+            //Hits
+            if (Hits.Condition > 6)
+            {
+                //hits
                 Result.LabelHits.Content = "нельзя попасть";
-                Result.LabelHits.FontSize = 10;
+                Result.LabelAddHitCondInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelAddHitCondition.Visibility = System.Windows.Visibility.Hidden;
+                //wounds
+                Result.LabelWoundInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelWounds.Visibility = System.Windows.Visibility.Hidden;
+                //saves
+                Result.LabelSaveInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSaves.Visibility = System.Windows.Visibility.Hidden;
+                //groups
+                Result.GroupHits.Visibility = System.Windows.Visibility.Hidden;
+                Result.GroupWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
+                return;
+            }
+            else
+            {
+                Result.LabelHits.Content = Hits.Hits.ToString();
+                Result.LabelHitCondition.Content = Hits.Condition.ToString() + "+";
+
+                Result.TextBlockHitCubes.Text = Hits.HitCubesStr;
+                Result.TextBlockHitCubes.TextWrapping = TextWrapping.Wrap;
+                if (Hits.AdditionalCondition <= 6)
+                {
+                    Result.LabelAddHitCondition.Content = Hits.AdditionalCondition.ToString() + "+";
+                }
+                else
+                {
+                    Result.LabelAddHitCondInfo.Visibility = System.Windows.Visibility.Hidden;
+                    Result.LabelAddHitCondition.Visibility = System.Windows.Visibility.Hidden;
+                }
+            }
+
+            //Wounds
+            if ((Wounds == null) || (Wounds.Condition > 6))
+            {
+                //saves
+                Result.LabelSaveInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSaves.Visibility = System.Windows.Visibility.Hidden;
+                //groups
+                Result.GroupWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
             }
 
             if (Wounds == null)
             {
-                Result.GroupWounds.Visibility = System.Windows.Visibility.Hidden;
-                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
+                //wounds
+                Result.LabelWounds.Content = "не попал";
                 return;
             }
-
-            //Wounds label
-            if (Wounds.Condition <= 6)
-                if (Wounds.Wounds != 0)
-                    Result.LabelWounds.Content = Wounds.Wounds.ToString();
-                else
-                    Result.LabelWounds.Content = "нет";
+            else if (Wounds.Condition > 6)
+            {
+                //wounds
+                Result.LabelWounds.Content = "нельзя ранить";
+                return;
+            }
             else
             {
-                Result.LabelWounds.Content = "нельзя ранить";
-                Result.LabelWounds.FontSize = 10;
+                Result.LabelWounds.Content = Wounds.Wounds.ToString();
+                Result.LabelWoundCondition.Content = Wounds.Condition.ToString() + "+";
+
+                Result.TextBlockWoundCubes.Text = Wounds.WoundCubesStr;
+                Result.TextBlockWoundCubes.TextWrapping = TextWrapping.Wrap;
+            }
+
+            //Saves
+            if ((Saves == null) || (Saves.Condition > 6))
+            {
+                //groups
+                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
             }
 
             if (Saves == null)
             {
-                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
+                //saves
+                Result.LabelSaves.Content = "не ранил";
                 return;
             }
-
-            //Saves label
-            if (Saves.Condition <= 6)
-                if (Saves.Saves != 0)
-                    Result.LabelSaves.Content = Saves.Saves.ToString();
-                else
-                    Result.LabelSaves.Content = "нет";
-            else
+            else if (Saves.Condition > 6)
             {
+                //saves
                 Result.LabelSaves.Content = "нельзя спасти";
-                Result.LabelSaves.FontSize = 10;
-            }
-
-            //G R O U P   H I T S
-            //Hit condition
-            if (Hits.Condition <= 6)
-                Result.LabelHitCondition.Content = Hits.Condition.ToString() + "+";
-            else
-            {
-                Result.LabelHitCondition.Content = "не попасть";
-                Result.LabelHitCondition.FontSize = 10;
-            }
-            //Additional hit condition
-            if (Hits.AdditionalCondition > 6)
-            {
-                Result.LabelAddHitCondInfo.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelAddHitCondition.Visibility = System.Windows.Visibility.Hidden;
-            }
-            else
-            {
-                Result.LabelAddHitCondition.Content = Hits.AdditionalCondition.ToString() + "+";
-            }
-
-            //If hit condition > 6 then battle ended
-            if (Hits.Condition > 6)
-            {
-                Result.GroupWounds.Visibility = System.Windows.Visibility.Hidden;
-                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelHitCubesInfo.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelHitCubes.Visibility = System.Windows.Visibility.Hidden;
                 return;
             }
-            //Hit cubes
-            Result.LabelHitCubes.Content = Hits.HitCubesStr;
-
-            //G R O U P   W O U N D S
-            //Wound condition
-            if (Wounds.Condition <= 6)
-                Result.LabelWoundCondition.Content = Wounds.Condition.ToString() + "+";
             else
             {
-                Result.LabelWoundCondition.Content = "не ранить";
-            }
-
-            //If wound condition > 6 then battle ended
-            if (Wounds.Condition > 6)
-            {
-                Result.LabelWoundCubes.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelWoundCubesInfo.Visibility = System.Windows.Visibility.Hidden;
-                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
-                return;
-            }
-            //Wound cubes
-            Result.LabelWoundCubes.Content = Wounds.WoundCubesStr;
-
-            //G R O U P   S A V E S
-            //Save condition
-            if (Saves.Condition <= 6)
+                Result.LabelSaves.Content = Saves.Saves.ToString();
                 Result.LabelSaveCondition.Content = Saves.Condition.ToString() + "+";
-            else
-            {
-                Result.LabelSaveCondition.Content = "не спасти";
-            }
 
-            //If save condition > 6 then battle ended
-            if (Saves.Condition > 6)
-            {
-                Result.LabelSaveCubesInfo.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelSaveCubes.Visibility = System.Windows.Visibility.Hidden;
-                return;
+                Result.TextBlockSaveCubes.Text = Saves.SaveCubesStr;
+                Result.TextBlockSaveCubes.TextWrapping = TextWrapping.Wrap;
             }
-            //Save cubes
-            Result.LabelSaveCubes.Content = Saves.SaveCubesStr;
             return;
         }
 
         //против техники
-        void DisplayResult(CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits, CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = null, CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = null)
+        void DisplayResult(CombatLib.Phases.PhaseHits.PhaseHitsVehicle Hits, CombatLib.Phases.PhaseWounds.PhaseWoundsVehicle Wounds = null, int S = -1, CombatLib.Phases.PhaseSaves.PhaseSavesVehicle Saves = null)
         {
             /*MessageBox.Show(Hits.ToString(), "Попадания", MessageBoxButton.OK);
             if (Wounds != null) MessageBox.Show(Wounds.ToString(), "Раны", MessageBoxButton.OK);
@@ -742,125 +756,127 @@ namespace Wh40k
             WindowResultVehicle Result = new WindowResultVehicle();
             Result.Show();
 
-            //Hits label
-            if (Hits.Condition <= 6)
-                if (Hits.Hits != 0)
-                    Result.LabelHits.Content = Hits.Hits.ToString();
-                else
-                    Result.LabelHits.Content = "нет";
-            else
-                Result.LabelHits.Content = "нельзя попасть";
-
-            if (Wounds == null)
+            //Hits
+            if (Hits.Condition > 6)
             {
+                //hits
+                Result.LabelHits.Content = "нельзя попасть";
+                Result.LabelAddHitCondInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelAddHitCondition.Visibility = System.Windows.Visibility.Hidden;
+                //wounds
+                Result.LabelPunchedWoundsInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelPunchedWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSlidingWoundsInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSlidingWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelStrengthInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelStrength.Visibility = System.Windows.Visibility.Hidden;
+                //saves
+                Result.LabelSaveInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSaves.Visibility = System.Windows.Visibility.Hidden;
+                //groups
+                Result.GroupHits.Visibility = System.Windows.Visibility.Hidden;
                 Result.GroupWounds.Visibility = System.Windows.Visibility.Hidden;
                 Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
                 return;
             }
+            else
+            {
+                Result.LabelHits.Content = Hits.Hits.ToString();
+                Result.LabelHitCondition.Content = Hits.Condition.ToString() + "+";
 
-            //Wounds labels
-            if (Wounds.Condition <= 6)
-                if (Wounds.Wounds != 0)
+                Result.TextBlockHitCubes.Text = Hits.HitCubesStr;
+                Result.TextBlockHitCubes.TextWrapping = TextWrapping.Wrap;
+                if (Hits.AdditionalCondition <= 6)
                 {
-                    Result.LabelPunchedWounds.Content = Wounds.PunchedWounds.ToString();
-                    Result.LabelSlidingWounds.Content = Wounds.SlidingWounds.ToString();
+                    Result.LabelAddHitCondition.Content = Hits.AdditionalCondition.ToString() + "+";
                 }
                 else
                 {
-                    Result.LabelPunchedWounds.Content = "нет";
-                    Result.LabelSlidingWounds.Content = "нет";
+                    Result.LabelAddHitCondInfo.Visibility = System.Windows.Visibility.Hidden;
+                    Result.LabelAddHitCondition.Visibility = System.Windows.Visibility.Hidden;
                 }
+            }
+
+            //Wounds
+            if ((Wounds == null) || (Wounds.Condition > 14))
+            {
+                //wounds
+                Result.LabelPunchedWoundsInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelPunchedWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSlidingWoundsInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSlidingWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelStrengthInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelStrength.Visibility = System.Windows.Visibility.Hidden;
+                //saves
+                Result.LabelSaveInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSaves.Visibility = System.Windows.Visibility.Hidden;
+                //groups
+                Result.GroupWounds.Visibility = System.Windows.Visibility.Hidden;
+                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
+            }
+
+            if (Wounds == null)
+            {
+                //wounds
+                Result.LabelWoundsInfo.Content = "не попал";
+                return;
+            }
+            else if (Wounds.Condition > 14)
+            {
+                //wounds
+                Result.LabelWoundsInfo.Content = "нельзя ранить";
+                return;
+            }
             else
             {
-                Result.LabelPunchedWounds.Content = "нельзя ранить";
-                Result.LabelSlidingWounds.Content = "нельзя ранить";
+                Result.LabelPunchedWounds.Content = Wounds.PunchedWounds.ToString();
+                Result.LabelSlidingWounds.Content = Wounds.SlidingWounds.ToString();
+                Result.LabelWoundCondition.Content = Wounds.Condition.ToString() + "+";
+
+                Result.TextBlockWoundCubes.Text = Wounds.WoundCubesStr;
+                Result.TextBlockWoundCubes.TextWrapping = TextWrapping.Wrap;
+
+                Result.LabelStrength.Content = S.ToString();
+            }
+
+            //Saves
+
+            if ((Saves == null) && (Wounds.Wounds != 0))
+            {
+                //saves
+                Result.LabelSaveInfo.Visibility = System.Windows.Visibility.Hidden;
+                Result.LabelSaves.Visibility = System.Windows.Visibility.Hidden;
+                //groups
+                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
+                return;
+            }
+
+            if ((Saves == null) || (Saves.Condition > 6))
+            {
+                //groups
+                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
             }
 
             if (Saves == null)
             {
-                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
+                //saves
+                Result.LabelSaves.Content = "не ранил";
                 return;
             }
-
-            //Saves label
-            if (Saves.Condition <= 6)
-                if (Saves.Saves != 0)
-                    Result.LabelSaves.Content = Saves.Saves.ToString();
-                else
-                    Result.LabelSaves.Content = "нет";
-            else
+            else if (Saves.Condition > 6)
+            {
+                //saves
                 Result.LabelSaves.Content = "нельзя спасти";
-
-            //G R O U P   H I T S
-            //Hit condition
-            if (Hits.Condition <= 6)
-                Result.LabelHitCondition.Content = Hits.Condition.ToString() + "+";
-            else
-            {
-                Result.LabelHitCondition.Content = "не попасть";
-                Result.LabelHitCondition.FontSize = 10;
-            }
-            //Additional hit condition
-            if (Hits.AdditionalCondition > 6)
-            {
-                Result.LabelAddHitCondInfo.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelAddHitCondition.Visibility = System.Windows.Visibility.Hidden;
-            }
-            else
-            {
-                Result.LabelAddHitCondition.Content = Hits.AdditionalCondition.ToString() + "+";
-            }
-
-            //If hit condition > 6 then battle ended
-            if (Hits.Condition > 6)
-            {
-                Result.GroupWounds.Visibility = System.Windows.Visibility.Hidden;
-                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelHitCubesInfo.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelHitCubes.Visibility = System.Windows.Visibility.Hidden;
                 return;
             }
-            //Hit cubes
-            Result.LabelHitCubes.Content = Hits.HitCubesStr;
-
-            //G R O U P   W O U N D S
-            //Wound condition
-            if (Wounds.Condition <= 6)
-                Result.LabelWoundCondition.Content = Wounds.Condition.ToString() + "+";
             else
             {
-                Result.LabelWoundCondition.Content = "не ранить";
-            }
-
-            //If wound condition > 6 then battle ended
-            if (Wounds.Condition > 6)
-            {
-                Result.LabelWoundCubes.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelWoundCubesInfo.Visibility = System.Windows.Visibility.Hidden;
-                Result.GroupSaves.Visibility = System.Windows.Visibility.Hidden;
-                return;
-            }
-            //Wound cubes
-            Result.LabelWoundCubes.Content = Wounds.WoundCubesStr;
-
-            //G R O U P   S A V E S
-            //Save condition
-            if (Saves.Condition <= 6)
+                Result.LabelSaves.Content = Saves.Saves.ToString();
                 Result.LabelSaveCondition.Content = Saves.Condition.ToString() + "+";
-            else
-            {
-                Result.LabelSaveCondition.Content = "не спасти";
-            }
 
-            //If save condition > 6 then battle ended
-            if (Saves.Condition > 6)
-            {
-                Result.LabelSaveCubesInfo.Visibility = System.Windows.Visibility.Hidden;
-                Result.LabelSaveCubes.Visibility = System.Windows.Visibility.Hidden;
-                return;
+                Result.TextBlockSaveCubes.Text = Saves.SaveCubesStr;
+                Result.TextBlockSaveCubes.TextWrapping = TextWrapping.Wrap;
             }
-            //Save cubes
-            Result.LabelSaveCubes.Content = Saves.SaveCubesStr;
             return;
         }
 

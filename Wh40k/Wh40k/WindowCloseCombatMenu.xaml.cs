@@ -248,9 +248,15 @@ namespace Wh40k
                     try
                     {
                         errLoc = "ArmorSave";
-                        DefendingPlayer.ArmorSave = Convert.ToInt16(this.TextBoxDefArmorSave.Text);
+                        if (this.CheckBoxDefArmorSave.IsChecked == true)
+                        {
+                            DefendingPlayer.ArmorSave = Convert.ToInt16(this.TextBoxDefArmorSave.Text);
+                        }
                         errLoc = "InvulSave";
-                        DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
+                        if (this.CheckBoxDefInvulSave.IsChecked == true)
+                        {
+                            DefendingPlayer.InvulSave = Convert.ToInt16(this.TextBoxDefInvulSave.Text);
+                        }
                         errLoc = "WS";
                         DefendingPlayer.WS = Convert.ToInt16(this.TextBoxDefenceWS.Text);
                         errLoc = this.LabelDefenceT.Content.ToString();
@@ -603,7 +609,9 @@ namespace Wh40k
             {
                 Result.LabelHits.Content = Hits.Hits.ToString();
                 Result.LabelHitCondition.Content = Hits.Condition.ToString() + "+";
-                Result.LabelHitCubes.Content = Hits.HitCubesStr;
+
+                Result.TextBlockHitCubes.Text = Hits.HitCubesStr;
+                Result.TextBlockHitCubes.TextWrapping = TextWrapping.Wrap;
                 if (Hits.AdditionalCondition <= 6)
                 {
                     Result.LabelAddHitCondition.Content = Hits.AdditionalCondition.ToString() + "+";
@@ -642,7 +650,9 @@ namespace Wh40k
             {
                 Result.LabelWounds.Content = Wounds.Wounds.ToString();
                 Result.LabelWoundCondition.Content = Wounds.Condition.ToString() + "+";
-                Result.LabelWoundCubes.Content = Wounds.WoundCubesStr;
+
+                Result.TextBlockWoundCubes.Text = Wounds.WoundCubesStr;
+                Result.TextBlockWoundCubes.TextWrapping = TextWrapping.Wrap;
             }
 
             //Saves
@@ -668,7 +678,9 @@ namespace Wh40k
             {
                 Result.LabelSaves.Content = Saves.Saves.ToString();
                 Result.LabelSaveCondition.Content = Saves.Condition.ToString() + "+";
-                Result.LabelSaveCubes.Content = Saves.SaveCubesStr;
+
+                Result.TextBlockSaveCubes.Text = Saves.SaveCubesStr;
+                Result.TextBlockSaveCubes.TextWrapping = TextWrapping.Wrap;
             }
             return;
         }
@@ -709,7 +721,9 @@ namespace Wh40k
             {
                 Result.LabelHits.Content = Hits.Hits.ToString();
                 Result.LabelHitCondition.Content = Hits.Condition.ToString() + "+";
-                Result.LabelHitCubes.Content = Hits.HitCubesStr;
+
+                Result.TextBlockHitCubes.Text = Hits.HitCubesStr;
+                Result.TextBlockHitCubes.TextWrapping = TextWrapping.Wrap;
                 if (Hits.AdditionalCondition <= 6)
                 {
                     Result.LabelAddHitCondition.Content = Hits.AdditionalCondition.ToString() + "+";
@@ -756,7 +770,10 @@ namespace Wh40k
                 Result.LabelPunchedWounds.Content = Wounds.PunchedWounds.ToString();
                 Result.LabelSlidingWounds.Content = Wounds.SlidingWounds.ToString();
                 Result.LabelWoundCondition.Content = Wounds.Condition.ToString() + "+";
-                Result.LabelWoundCubes.Content = Wounds.WoundCubesStr;
+
+                Result.TextBlockWoundCubes.Text = Wounds.WoundCubesStr;
+                Result.TextBlockWoundCubes.TextWrapping = TextWrapping.Wrap;
+
                 Result.LabelStrength.Content = S.ToString();
             }
 
@@ -794,7 +811,9 @@ namespace Wh40k
             {
                 Result.LabelSaves.Content = Saves.Saves.ToString();
                 Result.LabelSaveCondition.Content = Saves.Condition.ToString() + "+";
-                Result.LabelSaveCubes.Content = Saves.SaveCubesStr;
+
+                Result.TextBlockSaveCubes.Text = Saves.SaveCubesStr;
+                Result.TextBlockSaveCubes.TextWrapping = TextWrapping.Wrap;
             }
             return;
         }
