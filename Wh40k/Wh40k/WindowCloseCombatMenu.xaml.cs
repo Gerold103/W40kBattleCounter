@@ -586,6 +586,11 @@ namespace Wh40k
             WindowResultInfantry Result = new WindowResultInfantry();
             Result.Show();
 
+            if (Wounds == null)
+                SetResultImg(ref Result, Hits.Hits);
+            else
+                SetResultImg(ref Result, Hits.Hits, Wounds.Wounds);
+
             //Hits
             if (Hits.Condition > 6)
             {
@@ -693,6 +698,11 @@ namespace Wh40k
             if (Saves != null) MessageBox.Show(Saves.ToString(), "Спасброски", MessageBoxButton.OK);*/
             WindowResultVehicle Result = new WindowResultVehicle();
             Result.Show();
+
+            if (Wounds == null)
+                SetResultImg(ref Result, Hits.Hits);
+            else
+                SetResultImg(ref Result, Hits.Hits, Wounds.Wounds);
 
             //Hits
             if (Hits.Condition > 6)
@@ -816,6 +826,40 @@ namespace Wh40k
                 Result.TextBlockSaveCubes.TextWrapping = TextWrapping.Wrap;
             }
             return;
+        }
+
+//У С Т А Н О В К А   И З О Б Р А Ж Е Н И Й
+
+        private void SetResultImg(ref WindowResultInfantry Result, int hits, int wounds = 0)
+        {
+            if (wounds * 4 <= hits)
+            {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Lose.png", UriKind.Relative));
+            }
+            else if (wounds * 3 <= hits)
+            {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Mid.png", UriKind.Relative));
+            }
+            else
+            {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Win.png", UriKind.Relative));
+            }
+        }
+
+        private void SetResultImg(ref WindowResultVehicle Result, int hits, int wounds = 0)
+        {
+            if (wounds * 4 <= hits)
+            {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Lose.png", UriKind.Relative));
+            }
+            else if (wounds * 3 <= hits)
+            {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Mid.png", UriKind.Relative));
+            }
+            else
+            {
+                Result.ImageBattleResult.Source = new BitmapImage(new Uri("Win.png", UriKind.Relative));
+            }
         }
 
 //Д О П О Л Н Е Н И Я
