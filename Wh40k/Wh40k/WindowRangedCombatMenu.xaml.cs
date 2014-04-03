@@ -633,12 +633,12 @@ namespace Wh40k
             if (Wounds != null) MessageBox.Show(Wounds.ToString(), "Раны", MessageBoxButton.OK);
             if (Saves != null) MessageBox.Show(Saves.ToString(), "Спасброски", MessageBoxButton.OK);*/
             WindowResultInfantry Result = new WindowResultInfantry();
-            Result.Show();
 
             if (Wounds == null)
                 SetResultImg(ref Result, Hits.Hits);
             else
                 SetResultImg(ref Result, Hits.Hits, Wounds.Wounds);
+            Result.Show();
 
             //Hits
             if (Hits.Condition > 6)
@@ -746,12 +746,12 @@ namespace Wh40k
             if (Wounds != null) MessageBox.Show(Wounds.ToString(), "Раны", MessageBoxButton.OK);
             if (Saves != null) MessageBox.Show(Saves.ToString(), "Спасброски", MessageBoxButton.OK);*/
             WindowResultVehicle Result = new WindowResultVehicle();
-            Result.Show();
 
             if (Wounds == null)
                 SetResultImg(ref Result, Hits.Hits);
             else 
                 SetResultImg(ref Result, Hits.Hits, Wounds.Wounds);
+            Result.Show();
 
             //Hits
             if (Hits.Condition > 6)
