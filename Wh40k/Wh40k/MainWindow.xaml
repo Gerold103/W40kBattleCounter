@@ -1,9 +1,12 @@
 ﻿<Window x:Class="Wh40k.WindowMainMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow" Width="600" Height="400" ResizeMode="NoResize" Background="#FF7A7A7A" MouseDown="Window_MouseDown" BorderThickness="2" ShowActivated="False" WindowStyle="None">
     <Window.Resources>
-        <Style x:Key="ButtonStyle" TargetType="Button">
+        <Color x:Key="colorFocus">#FFDC2D2D</Color>
+        <Color x:Key="colorBasic">#FFD47777</Color>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Template">
@@ -28,31 +31,67 @@
             <Setter Property="Control.Background">
                 <Setter.Value>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                        <GradientStop Color="#FFD47777"/>
+                        <GradientStop Color="{StaticResource colorBasic}"/>
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Storyboard x:Key="Focus">
+        <Storyboard x:Key="FocusRanged">
         	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonDistantCombat">
-        		<EasingColorKeyFrame KeyTime="0" Value="#FFD47777"/>
-        		<EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FFDC2D2D"/>
+        		<EasingColorKeyFrame KeyTime="0" Value="{StaticResource colorBasic}"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorFocus}"/>
         	</ColorAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Key="Defocus">
+        <Storyboard x:Key="DefocusRanged">
         	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonDistantCombat">
-        		<SplineColorKeyFrame KeyTime="0" Value="#FFDC2D2D"/>
-        		<SplineColorKeyFrame KeyTime="0:0:0.1" Value="#FFD47777"/>
+        		<SplineColorKeyFrame KeyTime="0" Value="{StaticResource colorFocus}"/>
+        		<SplineColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorBasic}"/>
+        	</ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="FocusMelee">
+        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonCloseCombat">
+        		<EasingColorKeyFrame KeyTime="0" Value="{StaticResource colorBasic}"/>
+        		<EasingColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorFocus}"/>
+        	</ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DefocusMelee">
+        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonCloseCombat">
+        		<SplineColorKeyFrame KeyTime="0" Value="{StaticResource colorFocus}"/>
+        		<SplineColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorBasic}"/>
+        	</ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="FocusClose">
+        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonCloseWindow">
+        		<EasingColorKeyFrame KeyTime="0" Value="{StaticResource colorBasic}"/>
+        		<EasingColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorFocus}"/>
+        	</ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DefocusClose">
+        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonCloseWindow">
+        		<SplineColorKeyFrame KeyTime="0" Value="{StaticResource colorFocus}"/>
+        		<SplineColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorBasic}"/>
         	</ColorAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
 	<Window.Triggers>
 		<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="ButtonDistantCombat">
-			<BeginStoryboard x:Name="Focus_BeginStoryboard" Storyboard="{StaticResource Focus}"/>
+			<BeginStoryboard x:Name="FocusRanged_BeginStoryboard" Storyboard="{StaticResource FocusRanged}"/>
 		</EventTrigger>
 		<EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ButtonDistantCombat">
-			<BeginStoryboard x:Name="Defocus_BeginStoryboard" Storyboard="{StaticResource Defocus}"/>
+			<BeginStoryboard x:Name="DefocusRanged_BeginStoryboard" Storyboard="{StaticResource DefocusRanged}"/>
+		</EventTrigger>
+		<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="ButtonCloseCombat">
+			<BeginStoryboard x:Name="FocusMelee_BeginStoryboard" Storyboard="{StaticResource FocusMelee}"/>
+		</EventTrigger>
+		<EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ButtonCloseCombat">
+			<BeginStoryboard x:Name="DefocusMelee_BeginStoryboard" Storyboard="{StaticResource DefocusMelee}"/>
+		</EventTrigger>
+		<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="ButtonCloseWindow">
+			<BeginStoryboard x:Name="FocusClose_BeginStoryboard" Storyboard="{StaticResource FocusClose}"/>
+		</EventTrigger>
+		<EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ButtonCloseWindow">
+			<BeginStoryboard x:Name="DefocusClose_BeginStoryboard" Storyboard="{StaticResource DefocusClose}"/>
 		</EventTrigger>
 	</Window.Triggers>
     <Grid>
@@ -71,14 +110,14 @@
                 </ImageBrush.RelativeTransform>
             </ImageBrush>
         </Grid.Background>
-        <Button Style ="{StaticResource ButtonStyle}" x:Name="ButtonDistantCombat" Content="Дальний бой" Margin="446,100,0,0" Width="140" Height="40" HorizontalAlignment="Left" Click="ButtonDistantCombat_Click"
+        <Button Style ="{StaticResource MenuButtonStyle}" x:Name="ButtonDistantCombat" Content="Дальний бой" Margin="446,100,0,0" Width="140" Height="40" HorizontalAlignment="Left" Click="ButtonDistantCombat_Click"
                 VerticalAlignment="Top">
         </Button>
         <Button 
-            Style ="{StaticResource ButtonStyle}" x:Name="ButtonCloseCombat" Content="Ближний бой" Margin="446,180,0,0" Width="140" Height="40" Click="ButtonCloseCombat_Click" HorizontalAlignment="Left" VerticalAlignment="Top">
+            Style ="{StaticResource MenuButtonStyle}" x:Name="ButtonCloseCombat" Content="Ближний бой" Margin="446,180,0,0" Width="140" Height="40" Click="ButtonCloseCombat_Click" HorizontalAlignment="Left" VerticalAlignment="Top">
         </Button>
         <Button 
-            Style ="{StaticResource ButtonStyle}" x:Name="ButtonCloseWindow" Content="Закрыть" Margin="446,260,0,0" Width="140" Height="40" Click="ButtonCloseWindow_Click" HorizontalAlignment="Left" VerticalAlignment="Top">
+            Style ="{StaticResource MenuButtonStyle}" x:Name="ButtonCloseWindow" Content="Закрыть" Margin="446,260,0,0" Width="140" Height="40" Click="ButtonCloseWindow_Click" HorizontalAlignment="Left" VerticalAlignment="Top">
         </Button>
         <Label Content="Battle Counter 2.0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="30" FontFamily="Arial" FontWeight="Bold" ClipToBounds="True">
             <Label.Effect>

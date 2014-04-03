@@ -3,6 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="WindowResultVehicle" Height="640.3" Width="302" BorderThickness="2" Visibility="Visible" BorderBrush="Black" AllowsTransparency="True"
         WindowStyle="None" MouseDown="Window_MouseDown">
+    <Window.Resources>
+        <Color x:Key="colorFocus">#FFAAAAAA</Color>
+        <Color x:Key="colorBasic">#FFDDDDDD</Color>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="1"
+                            Padding="4,2" 
+                            BorderBrush="DarkGray" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Control.FontFamily" Value="Microsoft Sans Serif"></Setter>
+            <Setter Property="Control.Foreground" Value="#FF484848"></Setter>
+            <Setter Property="Panel.ZIndex" Value="-2"></Setter>
+            <Setter Property="Control.BorderThickness" Value="0"></Setter>
+            <Setter Property="Control.BorderBrush" Value="{x:Null}"></Setter>
+            <Setter Property="Control.Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="{StaticResource colorBasic}"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Storyboard x:Key="FocusClose">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonCloseWindow">
+                <EasingColorKeyFrame KeyTime="0" Value="{StaticResource colorBasic}"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorFocus}"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DefocusClose">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonCloseWindow">
+                <SplineColorKeyFrame KeyTime="0" Value="{StaticResource colorFocus}"/>
+                <SplineColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorBasic}"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="ButtonCloseWindow">
+            <BeginStoryboard x:Name="FocusClose_BeginStoryboard" Storyboard="{StaticResource FocusClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ButtonCloseWindow">
+            <BeginStoryboard x:Name="DefocusClose_BeginStoryboard" Storyboard="{StaticResource DefocusClose}"/>
+        </EventTrigger>
+    </Window.Triggers>
     <!--Scroll Viewer for entire Window-->
     <ScrollViewer MouseDown="Window_MouseDown" Margin="0,0,0,-4" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <!--Main Grid-->
@@ -190,7 +245,7 @@
                 </Grid>
             </GroupBox>
             <!-- Buttons -->
-            <Button Grid.Row="5" Width="100" Height="30" Content="Закрыть" Margin="10" Name="ButtonCloseWindow" Click="ButtonCloseWindow_Click"/>
+            <Button Grid.Row="5" Width="100" Height="30" Content="Закрыть" Margin="10" Name="ButtonCloseWindow" Click="ButtonCloseWindow_Click" Style ="{StaticResource MenuButtonStyle}"/>
             <!-- Footer with name of program -->
             <Label Grid.Row="6" Content="Battle Counter 2.0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontFamily="Arial" FontWeight="Bold" ClipToBounds="True" RenderTransformOrigin="0.5,0.5">
                 <Label.Effect>

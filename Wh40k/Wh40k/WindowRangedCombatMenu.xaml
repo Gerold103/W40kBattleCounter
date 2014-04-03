@@ -6,6 +6,97 @@
     <Window.Background>
         <ImageBrush ImageSource="ChaosMarine.png"/>
     </Window.Background>
+    <Window.Resources>
+        <Color x:Key="colorFocus">#FF7943cd</Color>
+        <Color x:Key="colorBasic">#FFB28EB6</Color>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="1"
+                            Padding="4,2" 
+                            BorderBrush="DarkGray" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Control.FontFamily" Value="Microsoft Sans Serif"></Setter>
+            <Setter Property="Control.Foreground" Value="#FF484848"></Setter>
+            <Setter Property="Panel.ZIndex" Value="-2"></Setter>
+            <Setter Property="Control.BorderThickness" Value="0"></Setter>
+            <Setter Property="Control.BorderBrush" Value="{x:Null}"></Setter>
+            <Setter Property="Control.Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="{StaticResource colorBasic}"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Storyboard x:Key="FocusBattle">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonPlayCombat">
+                <EasingColorKeyFrame KeyTime="0" Value="{StaticResource colorBasic}"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorFocus}"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DefocusBattle">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonPlayCombat">
+                <SplineColorKeyFrame KeyTime="0" Value="{StaticResource colorFocus}"/>
+                <SplineColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorBasic}"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="FocusClose">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonCloseWindow">
+                <EasingColorKeyFrame KeyTime="0" Value="{StaticResource colorBasic}"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorFocus}"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DefocusClose">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonCloseWindow">
+                <SplineColorKeyFrame KeyTime="0" Value="{StaticResource colorFocus}"/>
+                <SplineColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorBasic}"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="FocusRand">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonFillFieldsWithRnd">
+                <EasingColorKeyFrame KeyTime="0" Value="{StaticResource colorBasic}"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorFocus}"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DefocusRand">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="ButtonFillFieldsWithRnd">
+                <SplineColorKeyFrame KeyTime="0" Value="{StaticResource colorFocus}"/>
+                <SplineColorKeyFrame KeyTime="0:0:0.1" Value="{StaticResource colorBasic}"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="ButtonPlayCombat">
+            <BeginStoryboard x:Name="FocusBattle_BeginStoryboard" Storyboard="{StaticResource FocusBattle}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ButtonPlayCombat">
+            <BeginStoryboard x:Name="DefocusBattle_BeginStoryboard" Storyboard="{StaticResource DefocusBattle}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="ButtonCloseWindow">
+            <BeginStoryboard x:Name="FocusClose_BeginStoryboard" Storyboard="{StaticResource FocusClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ButtonCloseWindow">
+            <BeginStoryboard x:Name="DefocusBattle_BeginStoryboard1" Storyboard="{StaticResource DefocusClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="ButtonFillFieldsWithRnd">
+            <BeginStoryboard x:Name="FocusRand_BeginStoryboard" Storyboard="{StaticResource FocusRand}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ButtonFillFieldsWithRnd">
+            <BeginStoryboard x:Name="DefocusRand_BeginStoryboard" Storyboard="{StaticResource DefocusRand}"/>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <!-- Images -->
         <Image HorizontalAlignment="Left" Margin="451,6,0,0" VerticalAlignment="Top" Width="100" Height="130" Source="Shield.png"/>
@@ -43,21 +134,9 @@
         <Label x:Name="LabelDefenceT" Content="T" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,302,120,0" Background="#FF4B4B4B" FontFamily="Microsoft Sans Serif" FontSize="13" Foreground="White" HorizontalContentAlignment="Center" MinWidth="30" MinHeight="25"/>
 
         <!-- Buttons -->
-        <Button x:Name="ButtonPlayCombat" Content="Сыграть бой" Margin="225,257,0,0" Width="140" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif" Panel.ZIndex="-2" BorderThickness="0" IsDefault="True" Click="ButtonPlayCombat_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFB28EB6" Offset="0"/>
-                    <GradientStop Color="#FFFEF9FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
+        <Button x:Name="ButtonPlayCombat" Content="Сыграть бой" Margin="225,257,0,0" Width="140" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Style ="{StaticResource MenuButtonStyle}" IsDefault="True" Click="ButtonPlayCombat_Click">
         </Button>
-        <Button x:Name="ButtonCloseWindow" Content="Закрыть окно" HorizontalAlignment="Left" Margin="225,309,0,0" VerticalAlignment="Top" Width="140" Height="40" BorderBrush="{x:Null}" Foreground="#FF484848" FontFamily="Microsoft Sans Serif" Panel.ZIndex="-2" BorderThickness="0" Click="ButtonCloseWindow_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFB28EB6" Offset="0"/>
-                    <GradientStop Color="#FFFEF9FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
+        <Button x:Name="ButtonCloseWindow" Content="Закрыть окно" HorizontalAlignment="Left" Margin="225,309,0,0" VerticalAlignment="Top" Width="140" Height="40" Style ="{StaticResource MenuButtonStyle}" Click="ButtonCloseWindow_Click">
         </Button>
 
         <!-- Footer with name of program -->
@@ -82,7 +161,7 @@
             </Label.Foreground>
         </Label>
         <!--Кнопка генерации случайных значений-->
-        <Button Name="ButtonFillFieldsWithRnd" HorizontalAlignment="Left" Height="41" Margin="21,345,0,0" VerticalAlignment="Top" Width="147" Click="ButtonFillFieldsWithRnd_Click">
+        <Button Name="ButtonFillFieldsWithRnd" HorizontalAlignment="Left" Height="41" Margin="21,345,0,0" VerticalAlignment="Top" Width="147" Click="ButtonFillFieldsWithRnd_Click" Style ="{StaticResource MenuButtonStyle}">
             <Button.Content>
                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">Сгенерировать случайные значения</TextBlock>
             </Button.Content>
