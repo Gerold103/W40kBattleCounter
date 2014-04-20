@@ -835,6 +835,7 @@ namespace Wh40k
             if (wounds * 4 <= hits)
             {
                 Result.ImageBattleResult.Source = new BitmapImage(new Uri("Lose.png", UriKind.Relative));
+                
             }
             else if (wounds * 3 <= hits)
             {

@@ -52,5 +52,13 @@ namespace Wh40k
         {
             this.DragMove();
         }
+
+//A D D I T I O N S
+
+        private void ButtonAutorsAndCooperating_Click(object sender, RoutedEventArgs e)
+        {
+            WindowAutors autors = new WindowAutors();
+            autors.Show();
+        }
     }
 }
